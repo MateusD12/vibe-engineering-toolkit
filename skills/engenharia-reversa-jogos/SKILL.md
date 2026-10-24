@@ -1,59 +1,77 @@
 ---
 name: engenharia-reversa-jogos
-description: Especialista em engenharia reversa de jogos de console (PS2, Xbox, N64, GameCube), recompilação estática (static recompilation) e ports nativos para PC em C/C++, CMake e SDL2. Use ao trabalhar com decompilação de jogos, compilação de ports nativos de consoles no PC ou análise de binários de jogos.
+description: Especialista em engenharia reversa de jogos de console (PS2, Xbox, N64, GameCube) e PC, recompilação estática (static recompilation), ports nativos para PC em C/C++, CMake/SDL2, hooking e automação via CLI um. Use ao trabalhar com decompilação de jogos, compilação de ports nativos de consoles no PC, modding ou análise de binários de jogos.
 ---
 
-# Engenheiro de Reversão de Jogos & Ports Nativos
+# Engenharia Reversa de Jogos, Ports Nativos & Modding Avançado
 
-Você é o especialista responsável por analisar, descomprimir, decompilar e compilar ports nativos de jogos clássicos de console (PlayStation 2, Xbox Clássico, Nintendo 64, GameCube) para execução nativa em computadores modernos com Windows.
-
-## 1. Arquitetura: Port Nativo vs. Emulador
-
-- **Emuladores clássicos (PCSX2, Xemu, Dolphin):**
-  - Traduzem as instruções da CPU original (MIPS R5900, PowerPC, x86 custom) em tempo de execução via JIT (Just-In-Time).
-  - Alto consumo de CPU, latência de entrada e restrições gráficas da arquitetura original.
-- **Ports Nativos & Recompilação Estática (Static Recompilation / Decomp):**
-  - **Recompilação Estática:** O binário original (.ELF, .XBE, ROM) é analisado e convertido offline em código intermediário ou C/C++, que é então compilado diretamente para código de máquina nativo x86_64.
-  - **Decompilação Completa (Matching Decomp):** A lógica original é revertida em código C legível com precisão de byte, permitindo compilar nativamente com suporte a widescreen (16:9, 21:9), taxas de quadros destravadas (60, 144+ FPS), controles de mouse e teclado e mods.
-  - **Exemplos de Referência:** *OpenGOAL* (Jak & Daxter), *Ship of Harkinian* (Zelda 64), *N64Recomp*, *re3 / reVC* (GTA 3/Vice City).
+Guia mestre de engenharia reversa para jogos de console (PS2, Xbox, N64, GameCube) e PC, cobrindo decompilação, recompilação estática, criação de ports nativos para Windows, hooking de funções e o pipeline automatizado via CLI `um`.
 
 ---
 
-## 2. A Esteira de Ferramentas no Windows
+## 1. Ferramentas Integradas (CLI `um`)
 
-Para qualquer projeto de port nativo ou engenharia reversa:
-1. **Linguagens e Compiladores:**
-   - **C++20 / C17:** Compilador MSVC (Visual Studio Build Tools) ou Clang/LLVM.
-   - **CMake (>= 3.24) e Ninja:** Geradores de build multiplataforma padrão.
-   - **Python (3.12):** Execução de scripts de extração de assets, parsing de tabelas de símbolos e scripts auxiliares.
-2. **Ambiente de Análise & Desmontagem:**
-   - **Ghidra (Open Source / NSA):** Análise estática, descompilação de arquiteturas MIPS (PS2 EE/IOP), PowerPC e x86.
-3. **Bibliotecas de Mídia & Plataforma:**
-   - **SDL2 / SDL3:** Gerenciamento de janelas, inputs (DualSense, Xbox Controller, Teclado/Mouse) e áudio multicanal.
-   - **DirectX 11/12, Vulkan ou OpenGL moderno:** Backends gráficos para renderização nativa acelerada por GPU.
-
----
-
-## 3. Diretrizes de Execução & Legalidade
-
-1. **Clean-Room & Extração Local de Assets:**
-   - O código-fonte dos ports nativos recompilados **NUNCA** distribui texturas, músicas, modelos 3D ou binários protegidos por direitos autorais.
-   - O projeto sempre possui uma etapa de **Asset Extraction**: o script (geralmente em Python ou C++) lê a imagem da mídia original fornecida pelo usuário (`game.iso`, `game.bin`, `game.z64`) e extrai os assets diretamente para a pasta do jogo no PC.
-2. **Verificação de Dependências:**
-   - Sempre certifique-se de que o CMake e o compilador C++ estejam configurados corretamente antes de invocar builds.
-   - Utilize CMake com gerador Ninja para builds paralelos de alta performance (`cmake -B build -G "Ninja"`).
+O comando `um` está instalado globalmente no sistema e provê utilitários imediatos:
+```powershell
+um scan "C:\Games\MeuJogo"              # Identifica engine, arquitetura, loaders, saves e rotas
+um backup "C:\Games\MeuJogo\saves"       # Snapshot e restore atômico de saves antes do teste
+um win screenshot                       # Captura tela do jogo no Windows
+um win rec start                        # Gravação de gameplay com áudio do processo (loopback)
+um kb search "decomp"                   # Pesquisa offline na base de conhecimento (>100 notas)
+um comfy generate --prompt "..."         # Geração local de texturas/assets via ComfyUI (sem custo)
+um render3d model.glb                   # Converte modelos 3D em frames de spritesheet (Blender)
+```
 
 ---
 
-## 4. Checklist de Atuação do Agente
+## 2. Estratégias por Tipo de Binário
 
-Ao receber um repositório ou solicitação de port/reversão de jogo:
-1. **Mapear a Arquitetura do Projeto:**
-   - Identifique a plataforma de origem (ex: PS2 = MIPS R5900 + Vector Units VU0/VU1; Xbox = x86 Coppermine + NV2A; N64 = MIPS VR4300 + Reality Coprocessor).
-   - Verifique se o projeto utiliza *Recompilação Estática* ou *Código Revertido Manualmente*.
-2. **Preparar a Extração de Assets:**
-   - Inspecione a pasta `extractor/` ou scripts `.py`.
-   - Oriente aponte o local da ISO do usuário para alimentar o pipeline de extração.
-3. **Compilar e Configurar o Executável Nativo:**
-   - Rode a configuração do CMake, ajuste as opções de backend gráfico (`-DUSE_VULKAN=ON` ou `-DRENDERER_DX12=ON`).
-   - Execute o build e teste a geração do executável `.exe` nativo.
+### A. Managed .NET & Unity Mono
+- Ferramentas: `ilspycmd`, `dnSpyEx`.
+- Fluxo:
+  ```powershell
+  ilspycmd -p -o ./decomp-output GameAssembly.dll
+  ```
+- O código descompilado deve ficar sempre **fora** do repositório de mod (`~/<game>-decomp/`).
+
+### B. Unity IL2CPP
+- Ferramentas: `Cpp2IL`, `Il2CppDumper`.
+- Extração de `GameAssembly.dll` + `global-metadata.dat`: gera structs, tipos, dummy DLLs e assinaturas de funções para carregar no Ghidra ou IDA.
+
+### C. Binários Nativos C/C++ e Consoles (PS2, N64, GameCube, Xbox)
+- **Descompilação:** Ghidra (MCP/headless) ou IDA Pro.
+  - Comece sempre por strings literais, siga as cross-references (XREFs) e renomeie as funções à medida que o fluxo for compreendido.
+- **Recompilação Estática (Static Recompilation):**
+  - MIPS (N64, PS2 EE/IOP) $\rightarrow$ C/C++ intermediário $\rightarrow$ Compilador nativo x86_64.
+  - Frameworks de referência: *N64Recomp*, *OpenGOAL*, *re3/reVC*, *Ship of Harkinian*.
+- **Matching Decompilation (Byte-Exact):**
+  - Uso de `objdiff` para garantir paridade exata de registradores e instruções contra o compilador original (ex: MWCC / GCC 2.95).
+
+---
+
+## 3. Formatos de Arquivos & Prova de Ida e Volta (Round-Trip)
+
+Ao fazer engenharia reversa de um formato de arquivo proprietário (`.dat`, `.pak`, `.sld`, `.bin`):
+1. **Inspeção de Cabeçalho:** Examine arquivos com hex editor ou script Python (`xxd`). Procure *magic bytes*, contagens, offsets de tabelas e compressão (zlib, lz4, lzo).
+2. **Leitor (Reader):** Escreva um parser que converta os dados brutos em formato legível (JSON, PNG, OBJ).
+3. **Escritor (Writer) & Round-Trip:** Escreva o reconversor e valide a prova de ida e volta:
+   $$\text{Arquivo Original} \xrightarrow{\text{Decode}} \text{Estrutura} \xrightarrow{\text{Encode}} \text{Arquivo Novo}$$
+   O arquivo re-codificado deve ter paridade exata ou quase nula de erro antes de ser injetado no jogo.
+
+---
+
+## 4. Hooking, Interceptação & DLL Proxies
+
+Para injetar código em executáveis nativos sem alterar o binário original:
+- **DLL Proxying:** Colocar uma DLL na pasta do jogo com o mesmo nome de uma dependência do sistema (`version.dll`, `d3d9.dll`, `dxgi.dll`, `winmm.dll`), exportando as funções originais via forwarder e executando código customizado no `DllMain`.
+- **VTable Hooks:** Substituir ponteiros de funções virtuais em memória para interceptar loops de renderização (`Present`, `EndScene`) ou lógica de entidades.
+- **RenderDoc:** Capturar passes de renderização da GPU para identificar constantes, buffers e shaders (usando 3Dmigoto para decompiler DXBC para HLSL).
+
+---
+
+## 5. Regras Rígidas de Segurança e Legalidade
+
+- **Uso estritamente pessoal e offline:** Nunca injete código em jogos online com anti-cheat ativo (Easy Anti-Cheat, BattlEye, Vanguard).
+- **Sem Pirataria ou DRM Bypass:** Nunca remova ou contorne proteções de autenticação ou DRM.
+- **Clean-Room:** O repositório Git nunca deve armazenar código descompilado do jogo nem arquivos protegidos por direitos autorais. O projeto deve sempre conter o script de extração que opera a partir da mídia original de posse do usuário.
+- **Backup Obrigatório:** Sempre use `um backup` antes de inicializar o jogo com patches experimentais.
