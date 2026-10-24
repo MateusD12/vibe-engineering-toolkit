@@ -2,20 +2,22 @@
 
 ## Estado Atual do Projeto (24 de Outubro de 2026)
 
-### Integração do Universal Modder & Pipeline de Engenharia Reversa (24/10/2026)
-- **Contexto:** Necessidade de transformar o toolkit em uma máquina completa de engenharia reversa, análise de binários de jogos, ports nativos e modding seguro com economia de tokens e automação nativa.
+### Expansão VR Modding, WebAssembly Ports & Matching Decompilation (24/10/2026)
+- **Contexto:** Análise do cenário de ponta da indústria (vídeo sobre a revolução de mods com IA no canal ORD Jogos, casos Maurice Heuman no MW2, Praydog UEVR e ports em browser).
 - **Ação:**
-  - Instalação e configuração do pacote `uv` e da ferramenta CLI `um` (`universal-modder`) no Windows.
-  - Sincronização offline da base de conhecimento com mais de 100 notas técnicas via variável global `UM_KB`.
-  - Integração de 12 novas skills de engenharia reversa e modding (`reverse-engineering`, `game-recon`, `game-automation`, `asset-pipeline`, `fal-assets`, `mod-any-game`, `mashup-mods`, `port-a-mod`, `publish-mod`, `share-field-notes`, `showcase-video`, `game-research-websearch`).
-  - Integração do trio de agentes especializados em jogos (`mod-orchestrator`, `mod-game-worker`, `mod-offline-worker`) e atualização profunda do `engenheiro-reversa-jogos`.
-  - Atualização dos scripts de instalação global em 1 clique (`scripts/install.ps1` e `scripts/install.sh`).
-  - Sincronização de todos os agentes e skills globalmente em `~/.claude/` e `~/.gemini/config/`.
-- **Impacto:** O ambiente conta agora com 25 agentes especialistas e 23 skills globais ativas em toda a máquina, com suporte a comandos rápidos como `um scan`, `um backup`, `um win` e `um kb search`.
+  - Criação da skill `vr-game-modding`: desacoplamento de câmera, matrizes estéreo, injeção OpenXR/OpenVR e perfis UEVR (Unreal Engine 4/5) com mira 6DOF.
+  - Criação da skill `wasm-game-ports`: compilação C/C++/Rust para WebAssembly/WebGPU via Emscripten com arquitetura Clean-Room 100% imune a DMCA (montagem virtual de assets locais via File System Access API).
+  - Formalização do pipeline de Matching Decompilation no `mod-orchestrator` e `engenheiro-reversa-jogos` com validação de paridade de registradores via `objdiff`.
+  - Atualização do catálogo para 25 agentes e 25 skills globais.
+- **Impacto:** O toolkit cobre todo o ciclo de vida moderno de engenharia de jogos: de mods convencionais a portas de realidade virtual e execuções no navegador sem risco jurídico.
 
 ---
 
 ## Histórico de Alterações
+
+### 24 de Outubro de 2026 — Adição de VR Modding, Ports Wasm e Matching Decomp
+- **O que foi feito:** Integração das skills `vr-game-modding` e `wasm-game-ports`, formalização da esteira de matching decompilation inspirada no caso MW2/Hex-Rays, e atualização dos agentes `mod-orchestrator` e `engenheiro-reversa-jogos`.
+- **Arquivos alterados:** `skills/vr-game-modding/SKILL.md`, `skills/wasm-game-ports/SKILL.md`, `agents/mod-orchestrator.md`, `agents/engenheiro-reversa-jogos.md`, `README.md`, `CLAUDE.md`, `GEMINI.md`.
 
 ### 24 de Outubro de 2026 — Integração do Pipeline de Engenharia Reversa e CLI `um`
 - **O que foi feito:** Incorporação das ferramentas, playbooks e skills do `universal-modder`, elevação do catálogo para 25 agentes e 23 skills, instalação global do CLI `um` no Windows e atualização da documentação.

@@ -104,30 +104,33 @@ chmod +x ./scripts/install.sh
 
 ---
 
-## 🛠️ Catálogo das 23 Skills Globais Inclusas
+## 🛠️ Catálogo das 25 Skills Globais Inclusas
 
 1. **`obsidian-engine`:** Motor global de economia de tokens com `codemap_generator.js` e cofre `.memory/`.
 2. **`orquestracao-ondas`:** Protocolo matemático de execução de subagentes em ondas paralelas.
 3. **`sanitizacao-codigo`:** Pente-fino cirúrgico de código legado com medição antes vs. depois.
 4. **`engenharia-reversa-jogos`:** Guia mestre de decompilação, recompilação estática, ports nativos e CLI `um`.
 5. **`reverse-engineering`:** Fluxo completo de inspeção de código real (Ghidra, ILSpy, Cpp2IL, Frida, RenderDoc).
-6. **`game-recon`:** Reconhecimento automático de arquitetura de jogos e mapeamento de rotas de hooking.
-7. **`game-automation`:** Automação nativa do Windows (PowerShell/C#) para screenshots, gravação e inputs.
-8. **`asset-pipeline`:** Conversão de modelos 3D e texturas em spritesheets e formatos de engine.
-9. **`fal-assets`:** Pipeline generativo via Fal.ai para modelos 3D, texturas PBR, áudio e sprites.
-10. **`mod-any-game`:** Loop completo de desenvolvimento de mods (intake $\rightarrow$ recon $\rightarrow$ lab $\rightarrow$ verify $\rightarrow$ publish).
-11. **`mashup-mods`:** Integração entre engines diferentes via WebSockets, IPC e compositing de profundidade.
-12. **`port-a-mod`:** Portabilidade de modificações entre versões de engines ou plataformas.
-13. **`publish-mod`:** Verificação pré-lançamento para garantir integridade e ausência de binários proprietários.
-14. **`share-field-notes`:** Documentação estruturada de notas de campo para enriquecer a base de conhecimento.
-15. **`showcase-video`:** Edição e renderização automatizada de vídeos de demonstração de mods.
-16. **`game-research-websearch`:** Pesquisa técnica aprofundada de engines e formatos não documentados.
-17. **`atualizar-historico`:** Mantém o `Historico.md` sincronizado a cada ciclo atômico.
-18. **`configurar-pwa` & `gerar-icones-pwa`:** Transforma apps web em Progressive Web Apps instaláveis.
-19. **`checkup-pc`:** Auditoria de performance, saúde e storage do computador do desenvolvedor.
-20. **`estilo-mateus`:** Padrão de escrita pessoal autêntico, técnico e sem clichês de IA.
-21. **`nitro-lovable-economia`:** Otimização de consumo de créditos em plataformas Lovable.
-22. **`nitro-app-publicado`:** Checklist pós-publicação de aplicações.
+6. **`vr-game-modding`:** Conversão de jogos para Realidade Virtual (VR 6DOF), perfis UEVR e injeção OpenXR.
+7. **`wasm-game-ports`:** Portabilidade para navegador via WebAssembly, WebGL/WebGPU e File System Access API imune a DMCA.
+8. **`game-recon`:** Reconhecimento automático de arquitetura de jogos e mapeamento de rotas de hooking.
+9. **`game-automation`:** Automação nativa do Windows (PowerShell/C#) para screenshots, gravação e inputs.
+10. **`asset-pipeline`:** Conversão de modelos 3D e texturas em spritesheets e formatos de engine.
+11. **`fal-assets`:** Pipeline generativo via Fal.ai para modelos 3D, texturas PBR, áudio e sprites.
+12. **`mod-any-game`:** Loop completo de desenvolvimento de mods (intake $\rightarrow$ recon $\rightarrow$ lab $\rightarrow$ verify $\rightarrow$ publish).
+13. **`mashup-mods`:** Integração entre engines diferentes via WebSockets, IPC e compositing de profundidade.
+14. **`port-a-mod`:** Portabilidade de modificações entre versões de engines ou plataformas.
+15. **`publish-mod`:** Verificação pré-lançamento para garantir integridade e ausência de binários proprietários.
+16. **`share-field-notes`:** Documentação estruturada de notas de campo para enriquecer a base de conhecimento.
+17. **`showcase-video`:** Edição e renderização automatizada de vídeos de demonstração de mods.
+18. **`game-research-websearch`:** Pesquisa técnica aprofundada de engines e formatos não documentados.
+19. **`atualizar-historico`:** Mantém o `Historico.md` sincronizado a cada ciclo atômico.
+20. **`configurar-pwa` & `gerar-icones-pwa`:** Transforma apps web em Progressive Web Apps instaláveis.
+21. **`checkup-pc`:** Auditoria de performance, saúde e storage do computador do desenvolvedor.
+22. **`estilo-mateus`:** Padrão de escrita pessoal autêntico, técnico e sem clichês de IA.
+23. **`nitro-lovable-economia`:** Otimização de consumo de créditos em plataformas Lovable.
+24. **`nitro-app-publicado`:** Checklist pós-publicação de aplicações.
+25. **`compliance-privacy`:** Diretrizes de segurança de dados e privacidade em conformidade.
 
 ---
 

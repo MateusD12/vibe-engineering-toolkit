@@ -67,6 +67,18 @@ These are the repo's hard rules (the mod-any-game skill, with the reasons in its
 - Keep `STATUS.md` current in plain language so the user can read the state without asking.
 - When the user reports a bug they see on screen, make it the game worker's priority, pass on every detail they give, and ask what they were doing when it appeared.
 
+## Matching Decompilation & Clean-Room Ports
+
+When executing reverse engineering or decompilation projects (console recompilations, PC ports, Wasm browser ports):
+1. **Parallel Matching Loop:** The supervisor dispatches disjoint functions to offline workers (`mod-offline-worker`). Each worker reconstructs C/C++ logic from Ghidra/IDA disassemblies and compares compiled output with `objdiff` against the target binary until byte-for-byte or register parity is reached.
+2. **Clean-Room Distribution (DMCA-Proof):**
+   - NEVER commit or distribute copyrighted original binaries, proprietary assets (music, models, textures), or verbatim proprietary code.
+   - The repository ships ONLY the open-source compiled engine or patcher.
+   - Assets are read dynamically from the user's legally owned game installation (via `extractor` scripts on PC or the File System Access API `showDirectoryPicker()` in Wasm browser ports).
+3. **VR & Web Port Extensions:**
+   - For VR conversion requests, trigger `skills/vr-game-modding` (UEVR profile generation, OpenXR stereo passes, 6DOF motion controller aim).
+   - For browser port requests, trigger `skills/wasm-game-ports` (Emscripten, WebGL/WebGPU, MEMFS local asset mount).
+
 ## Records
 
 - `MODLOG.md` is the journal: paths, IDs, formats, what failed and why, the next step. Anything not written there is lost at the next context compaction.

@@ -40,7 +40,7 @@ Vale para **todas as sessões** e todos os projetos em `C:\Projetos\`.
   - Features IA/OCR/prompt: `revisor-ia` | Custos (Supabase/Azure/IA/Lovable): `analista-custo-nuvem`
   - Chamados Teams/e-mail: `triagem-chamados` | Electron/SDK: `especialista-electron`
   - Deploy quebrou/revert: `agente-rollback` | Mudou agente/skill/hook/settings: `auditor-agentes` | Infra nova: `infraestrutura-projetos`
-  - Jogos/Ports/Decomp/Recompilação/Modding (PS2, Xbox, N64, PC): `engenheiro-reversa-jogos` + `mod-orchestrator` + CLI `um`
+  - Jogos/Ports/Decomp/Recompilação/Modding (PS2, Xbox, N64, PC): `engenheiro-reversa-jogos` + `mod-orchestrator` + CLI `um` | VR Modding: `vr-game-modding` | Ports Navegador/Wasm: `wasm-game-ports`
 - **Relatório final (sempre incluir 1 linha):** `Agentes: revisor-codigo ✔ · seguranca ✔ · testador ✔ build ok` (ou justificativa se pulou).
 
 ## 3. Contas GitHub & Regras por Contexto (Pessoal vs. Nitro)
