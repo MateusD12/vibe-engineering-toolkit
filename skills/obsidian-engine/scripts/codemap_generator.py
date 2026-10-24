@@ -74,8 +74,85 @@ def extract_signatures(file_path: Path):
         pass
     return results
 
+IMPORT_TS = re.compile(r'''(?:import|export)\s[^'"]*?from\s*['"]([^'"]+)['"]|import\s*\(\s*['"]([^'"]+)['"]\s*\)|^\s*import\s*['"]([^'"]+)['"]''', re.M)
+IMPORT_PY = re.compile(r'^\s*from\s+(\.+[\w.]*)\s+import|^\s*from\s+([\w.]+)\s+import|^\s*import\s+([\w.]+)', re.M)
+EXT_RESOLVE = ['', '.ts', '.tsx', '.js', '.jsx', '/index.ts', '/index.tsx', '/index.js']
+LIMITE_LINHAS = 350  # arquivos maiores ficam marcados no mapa (refatorar só quando forem tocados)
+
+def resolve_import(spec: str, origem: Path, root_path: Path, lang: str):
+    """Converte o import em caminho de arquivo do próprio repo (ignora pacotes externos)."""
+    if lang == 'py':
+        if spec.startswith('.'):
+            nivel = len(spec) - len(spec.lstrip('.'))
+            base = origem.parent
+            for _ in range(nivel - 1):
+                base = base.parent
+            cand = base / spec.lstrip('.').replace('.', '/')
+        else:
+            cand = root_path / spec.replace('.', '/')
+        for c in (cand.with_suffix('.py'), cand / '__init__.py'):
+            if c.is_file():
+                return c
+        return None
+    if spec.startswith('@/'):
+        cand = root_path / 'src' / spec[2:]
+    elif spec.startswith('.'):
+        cand = (origem.parent / spec)
+    else:
+        return None
+    for e in EXT_RESOLVE:
+        c = Path(str(cand) + e)
+        if c.is_file():
+            return c.resolve()
+    return None
+
+def extract_imports(file_path: Path, root_path: Path):
+    ext = file_path.suffix.lower()
+    if ext == '.sql':
+        return []
+    lang = 'py' if ext == '.py' else 'ts'
+    try:
+        txt = file_path.read_text(encoding='utf-8', errors='ignore')
+    except Exception:
+        return []
+    deps = set()
+    for m in (IMPORT_PY if lang == 'py' else IMPORT_TS).finditer(txt):
+        spec = next((g for g in m.groups() if g), None)
+        if not spec:
+            continue
+        alvo = resolve_import(spec, file_path, root_path, lang)
+        if alvo:
+            try:
+                deps.add(alvo.relative_to(root_path.resolve()).as_posix())
+            except ValueError:
+                pass
+    return sorted(deps)
+
+def write_import_graph(mem_dir: Path, graph: dict):
+    """Grafo local de dependências: 'usa' e 'usado por' de cada arquivo (só arquivos do próprio repo)."""
+    usado_por = {}
+    for f, deps in graph.items():
+        for d in deps:
+            usado_por.setdefault(d, []).append(f)
+    linhas = ["---", f"updated: {datetime.now().strftime('%Y-%m-%d %H:%M')}", "type: import-graph", "---",
+              "# Grafo de imports (gerado localmente)",
+              "> Antes de mexer num arquivo, leia só os arquivos que ele USA e os que o USAM — não o repositório inteiro.\n"]
+    for f in sorted(set(graph) | set(usado_por)):
+        u, p = graph.get(f, []), sorted(usado_por.get(f, []))
+        if not u and not p:
+            continue
+        linhas.append(f"## `{f}`")
+        if u:
+            linhas.append("  - usa: " + ", ".join(f"`{x}`" for x in u))
+        if p:
+            linhas.append(f"  - usado por ({len(p)}): " + ", ".join(f"`{x}`" for x in p))
+        linhas.append("")
+    (mem_dir / '02-codemap' / 'imports.md').write_text('\n'.join(linhas), encoding='utf-8')
+
 def build_codemap(root_path: Path):
     mem_dir = init_memory_vault(root_path)
+    graph = {}
+    grandes = 0
     output_lines = [
         "---",
         f"updated: {datetime.now().strftime('%Y-%m-%d %H:%M')}",
@@ -100,7 +177,12 @@ def build_codemap(root_path: Path):
                 except Exception:
                     total_lines = 0
                 
-                output_lines.append(f"## `{rel_path}` ({total_lines} linhas)")
+                graph[rel_path] = extract_imports(fpath, root_path)
+                aviso = ''
+                if total_lines > LIMITE_LINHAS:
+                    aviso = f' ⚠ acima de {LIMITE_LINHAS} linhas'
+                    grandes += 1
+                output_lines.append(f"## `{rel_path}` ({total_lines} linhas){aviso}")
                 if sigs:
                     output_lines.extend(sigs)
                 else:
@@ -110,7 +192,10 @@ def build_codemap(root_path: Path):
 
     codemap_file = mem_dir / '02-codemap' / 'tree-signatures.md'
     codemap_file.write_text('\n'.join(output_lines), encoding='utf-8')
-    print(f"[Obsidian Engine] Mapeamento concluído ({root_path.name}): {file_count} arquivos indexados em .memory/02-codemap/tree-signatures.md")
+    write_import_graph(mem_dir, graph)
+    arestas = sum(len(v) for v in graph.values())
+    print(f"[Obsidian Engine] Mapeamento concluído ({root_path.name}): {file_count} arquivos, {arestas} ligações de import, "
+          f"{grandes} arquivos acima de {LIMITE_LINHAS} linhas — .memory/02-codemap/tree-signatures.md + imports.md")
 
 def garante_exclusao_local(root_path: Path):
     """O cofre é local: registra .memory/ em .git/info/exclude (não é versionado, não entra em commit nem na producao)."""

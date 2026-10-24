@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
- * Obsidian Engine — Motor Local Universal de Mapa de Código (Node.js puro, zero dependências)
+ * Obsidian Engine — Motor Local Universal de Mapa de Código + Grafo de Imports (Node.js puro, zero dependências)
  * Suporta: TypeScript/JavaScript/React, Python, C/C++, C#, Rust, Go, Lua, SQL, VBA, DAX.
- * Extrai assinaturas AST via regex em milissegundos a custo zero de tokens.
+ * Gera:
+ *   - .memory/02-codemap/tree-signatures.md (com alerta automático de arquivos > 350 linhas)
+ *   - .memory/02-codemap/imports.md (grafo "usa" / "usado por" para leitura cirúrgica de vizinhos)
  */
 const fs = require('fs');
 const path = require('path');
@@ -23,6 +25,9 @@ const EXTENSIONS = new Set([
   '.lua',
   '.sql', '.vba', '.dax'
 ]);
+
+const LIMITE_LINHAS = 350;
+const EXT_RESOLVE = ['', '.ts', '.tsx', '.js', '.jsx', '/index.ts', '/index.tsx', '/index.js', '.h', '.hpp', '.cpp', '.c'];
 
 const PATTERNS = {
   py: [
@@ -105,6 +110,7 @@ function initMemoryVault(rootPath) {
       '',
       '## Índices Principais',
       '- [[tree-signatures|Mapa de Assinaturas e Linhas de Código]]',
+      '- [[imports|Grafo de Imports e Dependências Locais]]',
       '',
       '## Módulos de Arquitetura Mapeados',
       '*(Os agentes adicionarão [[wikilinks]] aqui conforme atuarem nos módulos)*',
@@ -115,7 +121,84 @@ function initMemoryVault(rootPath) {
   return memDir;
 }
 
-function extractSignatures(filePath) {
+function resolveImport(spec, origem, rootPath, lang) {
+  if (!spec) return null;
+  if (lang === 'py') {
+    let cand;
+    if (spec.startsWith('.')) {
+      const nivel = spec.length - spec.replace(/^\.+/, '').length;
+      let base = path.dirname(origem);
+      for (let i = 0; i < nivel - 1; i++) base = path.dirname(base);
+      cand = path.join(base, spec.replace(/^\.+/, '').split('.').join(path.sep));
+    } else {
+      cand = path.join(rootPath, spec.split('.').join(path.sep));
+    }
+    for (const c of [`${cand}.py`, path.join(cand, '__init__.py')]) {
+      if (fs.existsSync(c) && fs.statSync(c).isFile()) return path.resolve(c);
+    }
+    return null;
+  }
+  if (lang === 'cpp') {
+    const candLocal = path.resolve(path.dirname(origem), spec);
+    if (fs.existsSync(candLocal) && fs.statSync(candLocal).isFile()) return candLocal;
+    const candRoot = path.resolve(rootPath, spec);
+    if (fs.existsSync(candRoot) && fs.statSync(candRoot).isFile()) return candRoot;
+    return null;
+  }
+  let cand;
+  if (spec.startsWith('@/')) {
+    cand = path.join(rootPath, 'src', spec.slice(2));
+  } else if (spec.startsWith('.')) {
+    cand = path.resolve(path.dirname(origem), spec);
+  } else {
+    return null;
+  }
+  for (const e of EXT_RESOLVE) {
+    const c = cand + e;
+    if (fs.existsSync(c) && fs.statSync(c).isFile()) return path.resolve(c);
+  }
+  return null;
+}
+
+function extractImports(content, filePath, rootPath, lang) {
+  if (lang === 'sql') return [];
+  const deps = new Set();
+  const rootResolved = path.resolve(rootPath);
+
+  if (lang === 'py') {
+    const rePy = /^\s*(?:from\s+(\.+[\w.]*|[\w.]+)\s+import|import\s+([\w.]+))/gm;
+    let m;
+    while ((m = rePy.exec(content)) !== null) {
+      const spec = m[1] || m[2];
+      const alvo = resolveImport(spec, filePath, rootResolved, 'py');
+      if (alvo && alvo.startsWith(rootResolved)) {
+        deps.add(path.relative(rootResolved, alvo).split(path.sep).join('/'));
+      }
+    }
+  } else if (lang === 'cpp') {
+    const reCpp = /^\s*#include\s*"([^"]+)"/gm;
+    let m;
+    while ((m = reCpp.exec(content)) !== null) {
+      const alvo = resolveImport(m[1], filePath, rootResolved, 'cpp');
+      if (alvo && alvo.startsWith(rootResolved)) {
+        deps.add(path.relative(rootResolved, alvo).split(path.sep).join('/'));
+      }
+    }
+  } else if (lang === 'ts') {
+    const reTs = /(?:import|export)\s[^'"]*?from\s*['"]([^'"]+)['"]|import\s*\(\s*['"]([^'"]+)['"]\s*\)|^\s*import\s*['"]([^'"]+)['"]/gm;
+    let m;
+    while ((m = reTs.exec(content)) !== null) {
+      const spec = m[1] || m[2] || m[3];
+      const alvo = resolveImport(spec, filePath, rootResolved, 'ts');
+      if (alvo && alvo.startsWith(rootResolved)) {
+        deps.add(path.relative(rootResolved, alvo).split(path.sep).join('/'));
+      }
+    }
+  }
+  return Array.from(deps).sort();
+}
+
+function extractFileInfo(filePath, rootPath) {
   const ext = path.extname(filePath).toLowerCase();
   const lang = getLang(ext);
   const rules = PATTERNS[lang] || [];
@@ -136,10 +219,45 @@ function extractSignatures(filePath) {
         }
       }
     }
-    return { results, totalLines: lines.length };
+    const imports = extractImports(content, filePath, rootPath, lang);
+    return { results, totalLines: lines.length, imports };
   } catch {
-    return { results: [], totalLines: 0 };
+    return { results: [], totalLines: 0, imports: [] };
   }
+}
+
+function writeImportGraph(memDir, graph) {
+  const usadoPor = {};
+  for (const [f, deps] of Object.entries(graph)) {
+    for (const d of deps) {
+      if (!usadoPor[d]) usadoPor[d] = [];
+      usadoPor[d].push(f);
+    }
+  }
+  const allFiles = Array.from(new Set([...Object.keys(graph), ...Object.keys(usadoPor)])).sort();
+  const linhas = [
+    '---',
+    `updated: ${formatDate(new Date(), true)}`,
+    'type: import-graph',
+    '---',
+    '# Grafo de imports (gerado localmente)',
+    '> Antes de mexer num arquivo, leia só os arquivos que ele USA e os que o USAM — não o repositório inteiro.\n'
+  ];
+
+  for (const f of allFiles) {
+    const u = graph[f] || [];
+    const p = (usadoPor[f] || []).sort();
+    if (u.length === 0 && p.length === 0) continue;
+    linhas.push(`## \`${f}\``);
+    if (u.length > 0) {
+      linhas.push('  - usa: ' + u.map((x) => `\`${x}\``).join(', '));
+    }
+    if (p.length > 0) {
+      linhas.push(`  - usado por (${p.length}): ` + p.map((x) => `\`${x}\``).join(', '));
+    }
+    linhas.push('');
+  }
+  fs.writeFileSync(path.join(memDir, '02-codemap', 'imports.md'), linhas.join('\n'), 'utf8');
 }
 
 function walkDir(dir, rootPath, fileCallback) {
@@ -187,6 +305,8 @@ function garanteExclusaoLocal(rootPath) {
 
 function buildCodemap(rootPath) {
   const memDir = initMemoryVault(rootPath);
+  const graph = {};
+  let grandes = 0;
   const outputLines = [
     '---',
     `updated: ${formatDate(new Date(), true)}`,
@@ -199,8 +319,14 @@ function buildCodemap(rootPath) {
   let fileCount = 0;
   walkDir(rootPath, rootPath, (fpath) => {
     const relPath = path.relative(rootPath, fpath).split(path.sep).join('/');
-    const { results, totalLines } = extractSignatures(fpath);
-    outputLines.push(`## \`${relPath}\` (${totalLines} linhas)`);
+    const { results, totalLines, imports } = extractFileInfo(fpath, rootPath);
+    graph[relPath] = imports;
+    let aviso = '';
+    if (totalLines > LIMITE_LINHAS) {
+      aviso = ` ⚠ acima de ${LIMITE_LINHAS} linhas`;
+      grandes++;
+    }
+    outputLines.push(`## \`${relPath}\` (${totalLines} linhas)${aviso}`);
     if (results.length > 0) {
       outputLines.push(...results);
     } else {
@@ -212,7 +338,9 @@ function buildCodemap(rootPath) {
 
   const codemapFile = path.join(memDir, '02-codemap', 'tree-signatures.md');
   fs.writeFileSync(codemapFile, outputLines.join('\n'), 'utf8');
-  console.log(`[Obsidian Engine] Mapeamento concluído (${path.basename(rootPath)}): ${fileCount} arquivos indexados em .memory/02-codemap/tree-signatures.md`);
+  writeImportGraph(memDir, graph);
+  const arestas = Object.values(graph).reduce((acc, v) => acc + v.length, 0);
+  console.log(`[Obsidian Engine] Mapeamento concluído (${path.basename(rootPath)}): ${fileCount} arquivos, ${arestas} ligações de import, ${grandes} arquivos acima de ${LIMITE_LINHAS} linhas — .memory/02-codemap/tree-signatures.md + imports.md`);
 }
 
 if (require.main === module) {
