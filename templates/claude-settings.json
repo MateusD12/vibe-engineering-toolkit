@@ -1,0 +1,53 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(python *)",
+      "Bash(py *)",
+      "Bash(uv *)",
+      "Bash(pip *)",
+      "Bash(um *)",
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(vercel *)",
+      "Bash(cmake *)",
+      "Bash(ninja *)",
+      "Bash(clang *)",
+      "Bash(clang++ *)",
+      "Bash(cargo *)",
+      "Bash(csc *)",
+      "Bash(7z *)",
+      "Bash(curl *)",
+      "Bash(powershell *)",
+      "Bash(pwsh *)",
+      "Bash(mkdir *)",
+      "Bash(ls *)",
+      "Bash(dir *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(find *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(echo *)",
+      "Bash(where *)",
+      "Bash(which *)"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/Pichau/.claude/hooks/lembrar-fluxo.js\""
+          }
+        ]
+      }
+    ]
+  }
+}

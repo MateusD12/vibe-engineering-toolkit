@@ -1,18 +1,28 @@
 #!/usr/bin/env node
 /**
- * Obsidian Engine — Motor Local de Mapa de Código (Node.js puro, zero dependências)
- * Adaptado de codemap_generator.py para rodar nativamente no PC pessoal sem depender de Python.
- * Inclui suporte a componentes React tipados (const X: FC<Props> = ...) e export default.
+ * Obsidian Engine — Motor Local Universal de Mapa de Código (Node.js puro, zero dependências)
+ * Suporta: TypeScript/JavaScript/React, Python, C/C++, C#, Rust, Go, Lua, SQL, VBA, DAX.
+ * Extrai assinaturas AST via regex em milissegundos a custo zero de tokens.
  */
 const fs = require('fs');
 const path = require('path');
 
 const IGNORE_DIRS = new Set([
   'node_modules', '.git', 'dist', 'build', '.next', '.venv', 'venv',
-  '__pycache__', '.memory', '.claude', '.vscode', 'coverage', 'out'
+  '__pycache__', '.memory', '.claude', '.vscode', 'coverage', 'out',
+  'target', 'bin', 'obj', 'third_party', 'extern', 'external'
 ]);
 
-const EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.py', '.sql', '.vba', '.dax']);
+const EXTENSIONS = new Set([
+  '.ts', '.tsx', '.js', '.jsx',
+  '.py',
+  '.c', '.cpp', '.cc', '.cxx', '.h', '.hpp',
+  '.cs',
+  '.rs',
+  '.go',
+  '.lua',
+  '.sql', '.vba', '.dax'
+]);
 
 const PATTERNS = {
   py: [
@@ -26,10 +36,43 @@ const PATTERNS = {
     [/^\s*(?:export\s+)?(?:interface|type)\s+([a-zA-Z0-9_]+)/, 'type'],
     [/^\s*(?:export\s+)?(?:default\s+)?class\s+([a-zA-Z0-9_]+)/, 'class']
   ],
+  cpp: [
+    [/^\s*(?:template\s*<[^>]*>\s*)?(?:class|struct)\s+(?:[A-Z0-9_]+\s+)?([a-zA-Z_][a-zA-Z0-9_]*)\s*(?:final\s*)?(?::|{|\b)/, 'class/struct'],
+    [/^\s*namespace\s+([a-zA-Z_][a-zA-Z0-9_:]*)/, 'namespace'],
+    [/^(?:[a-zA-Z_][a-zA-Z0-9_:<>*&\s]{1,60})\s+([a-zA-Z_][a-zA-Z0-9_:]*)\s*\([^;]*\)\s*(?:const\s*)?(?:noexcept\s*)?(?:override\s*)?{/, 'fn']
+  ],
+  cs: [
+    [/^\s*(?:public|private|protected|internal|static|sealed|abstract|partial|\s)+class\s+([a-zA-Z_][a-zA-Z0-9_]*)/, 'class'],
+    [/^\s*(?:public|private|protected|internal|static|\s)+(?:struct|interface|enum)\s+([a-zA-Z_][a-zA-Z0-9_]*)/, 'type'],
+    [/^\s*(?:public|private|protected|internal|static|virtual|override|async|\s)+[a-zA-Z0-9_<>,\[\]\?]+\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\([^;]*\)\s*(?:where\b[^{]*)?{/, 'method']
+  ],
+  rs: [
+    [/^\s*(?:pub(?:\([^)]*\))?\s+)?(?:async\s+)?(?:unsafe\s+)?fn\s+([a-zA-Z_][a-zA-Z0-9_]*)/, 'fn'],
+    [/^\s*(?:pub(?:\([^)]*\))?\s+)?(?:struct|enum|trait|type)\s+([a-zA-Z_][a-zA-Z0-9_]*)/, 'type'],
+    [/^\s*impl(?:<[^>]*>)?\s+([a-zA-Z_][a-zA-Z0-9_:<>\s]*?)\s*\{/, 'impl']
+  ],
+  go: [
+    [/^\s*func\s+(?:\([^)]+\)\s+)?([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/, 'func'],
+    [/^\s*type\s+([a-zA-Z_][a-zA-Z0-9_]*)\s+(?:struct|interface)/, 'type']
+  ],
+  lua: [
+    [/^\s*(?:local\s+)?function\s+([a-zA-Z_][a-zA-Z0-9_.:]*)\s*\(/, 'fn']
+  ],
   sql: [
-    [/^\s*CREATE\s+(?:OR\s+REPLACE\s+)?(?:TABLE|VIEW|FUNCTION|PROCEDURE)\s+(?:IF\s+NOT\s+EXISTS\s+)?([a-zA-Z0-9_.]+)/i, 'sql-obj']
+    [/^\s*CREATE\s+(?:OR\s+REPLACE\s+)?(?:TABLE|VIEW|FUNCTION|PROCEDURE|POLICY)\s+(?:IF\s+NOT\s+EXISTS\s+)?([a-zA-Z0-9_."]+)/i, 'sql-obj']
   ]
 };
+
+function getLang(ext) {
+  if (ext === '.py') return 'py';
+  if (ext === '.sql') return 'sql';
+  if (['.c', '.cpp', '.cc', '.cxx', '.h', '.hpp'].includes(ext)) return 'cpp';
+  if (ext === '.cs') return 'cs';
+  if (ext === '.rs') return 'rs';
+  if (ext === '.go') return 'go';
+  if (ext === '.lua') return 'lua';
+  return 'ts';
+}
 
 function formatDate(d = new Date(), withTime = false) {
   const pad = (n) => String(n).padStart(2, '0');
@@ -74,7 +117,7 @@ function initMemoryVault(rootPath) {
 
 function extractSignatures(filePath) {
   const ext = path.extname(filePath).toLowerCase();
-  const lang = ext === '.py' ? 'py' : (ext === '.sql' ? 'sql' : 'ts');
+  const lang = getLang(ext);
   const rules = PATTERNS[lang] || [];
   const results = [];
 
@@ -85,8 +128,11 @@ function extractSignatures(filePath) {
       const line = lines[i];
       for (const [regex, kind] of rules) {
         const match = line.match(regex);
-        if (match) {
-          results.push(`  - \`${kind}: ${match[1]}\` (Linha ${i + 1})`);
+        if (match && match[1]) {
+          const sym = match[1].trim();
+          if (!['if', 'for', 'while', 'switch', 'catch', 'return', 'sizeof'].includes(sym)) {
+            results.push(`  - \`${kind}: ${sym}\` (Linha ${i + 1})`);
+          }
         }
       }
     }

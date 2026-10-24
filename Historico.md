@@ -2,18 +2,22 @@
 
 ## Estado Atual do Projeto (24 de Outubro de 2026)
 
-### Expansão VR Modding, WebAssembly Ports & Matching Decompilation (24/10/2026)
-- **Contexto:** Análise do cenário de ponta da indústria (vídeo sobre a revolução de mods com IA no canal ORD Jogos, casos Maurice Heuman no MW2, Praydog UEVR e ports em browser).
+### Pente-Fino Global & Ativação do Modo Turbo Universal (24/10/2026)
+- **Contexto:** Garantir que qualquer sessão nova aberta (seja em jogos, engenharia reversa, aplicativos web/mobile, backend ou ferramentas desktop) opere automaticamente no Modo Turbo (Auto-Pilot + Obsidian Engine Universal + Ondas Paralelas + Quality Gate de 350 linhas + Pipeline de Agentes).
 - **Ação:**
-  - Criação da skill `vr-game-modding`: desacoplamento de câmera, matrizes estéreo, injeção OpenXR/OpenVR e perfis UEVR (Unreal Engine 4/5) com mira 6DOF.
-  - Criação da skill `wasm-game-ports`: compilação C/C++/Rust para WebAssembly/WebGPU via Emscripten com arquitetura Clean-Room 100% imune a DMCA (montagem virtual de assets locais via File System Access API).
-  - Formalização do pipeline de Matching Decompilation no `mod-orchestrator` e `engenheiro-reversa-jogos` com validação de paridade de registradores via `objdiff`.
-  - Atualização do catálogo para 25 agentes e 25 skills globais.
-- **Impacto:** O toolkit cobre todo o ciclo de vida moderno de engenharia de jogos: de mods convencionais a portas de realidade virtual e execuções no navegador sem risco jurídico.
+  - **Obsidian Engine Universal (`codemap_generator.js`):** Expansão do extrator AST zero-dependências para suportar **C/C++** (`.c`, `.cpp`, `.cc`, `.h`, `.hpp`), **C#** (`.cs`), **Rust** (`.rs`), **Go** (`.go`) e **Lua** (`.lua`), além de TS/JS/React, Python e SQL. Pré-indexação imediata de todos os repositórios locais em `C:\Projetos\` (incluindo 261 arquivos C++ do `PS2Recomp` e 129 arquivos do `universal-modder`).
+  - **Hook Global `lembrar-fluxo.js` e Slash Commands (`/atualizar`, `/novo-projeto`):** Incorporados ao toolkit e atualizados para injetar automaticamente os gatilhos de Jogos/Engenharia Reversa, VR 6DOF, Ports Wasm, Sanitização/350 linhas, Ondas Paralelas e Obsidian Engine em toda tarefa técnica.
+  - **Auto-Pilot `settings.json` (`templates/claude-settings.json`):** Whitelist expandida com segurança para compiladores e ferramentas do ecossistema (`um`, `uv`, `cmake`, `ninja`, `clang++`, `cargo`, `csc`, `7z`, `vercel`, `curl`, `rg`), eliminando interrupções de permissão sem abrir brechas destrutivas.
+  - **Sincronização Cross-Repo:** Alinhamento completo com `obsidian-engine` (`Dev`), `claude-agentes-nitro` (`Dev`) e `escritorio-agentes` (`Dev`, incluindo correção de segurança na validação de `Origin`/`Host` e adição dos 4 agentes de jogos nas salas do Escritório 3D).
+- **Impacto:** Qualquer conversa nova já nasce com o mapa de código gerado, permissões liberadas, hook ativo e todos os 25 agentes e 25 skills sincronizados entre Claude Code (`~/.claude`) e Antigravity/Gemini (`~/.gemini`).
 
 ---
 
 ## Histórico de Alterações
+
+### 24 de Outubro de 2026 — Pente-Fino Global & Modo Turbo Universal
+- **O que foi feito:** Upgrade multi-linguagem no `codemap_generator.js` (C/C++/C#/Rust/Go/Lua), criação de `hooks/lembrar-fluxo.js`, `commands/atualizar.md`, `commands/novo-projeto.md` e `templates/claude-settings.json`, evolução do `scripts/install.ps1` e pré-indexação `.memory/` em todos os repositórios de `C:\Projetos\`.
+- **Arquivos alterados:** `skills/obsidian-engine/scripts/codemap_generator.js`, `skills/obsidian-engine/README.md`, `hooks/lembrar-fluxo.js`, `commands/atualizar.md`, `commands/novo-projeto.md`, `templates/claude-settings.json`, `scripts/install.ps1`, `CLAUDE.md`, `GEMINI.md`, `Historico.md`.
 
 ### 24 de Outubro de 2026 — Adição de VR Modding, Ports Wasm e Matching Decomp
 - **O que foi feito:** Integração das skills `vr-game-modding` e `wasm-game-ports`, formalização da esteira de matching decompilation inspirada no caso MW2/Hex-Rays, e atualização dos agentes `mod-orchestrator` e `engenheiro-reversa-jogos`.
