@@ -75,7 +75,7 @@ const REGRAS = [
   ],
   [
     /\b(commit|push|sobe|subir|git)\b/i,
-    "GIT — git-workflow (branch Dev para repos Nitro; main/Dev para repos pessoais)."
+    "GIT — git-workflow (branch padrão: main)."
   ]
 ];
 

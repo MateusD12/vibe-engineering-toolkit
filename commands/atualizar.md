@@ -19,6 +19,6 @@ Execute na ordem:
    - Nenhum arquivo de código de aplicação pode exceder **350 linhas** (fatiar estado em Hooks, UI em sub-componentes, dados em services).
    - Se usar subagentes em paralelo (`orquestracao-ondas`), garantir conjuntos de arquivos disjuntos (`Files(A) ∩ Files(B) = ∅`). Subagentes nunca commitam.
 5. **Pipeline de qualidade:** `revisor-codigo` → `seguranca` → `testador` (build + preview/jogo) → `pentester` → `tech-lead`. Reprovou → corrigir e retestar.
-6. **Entrega:** rodar de novo o codemap (`codemap_generator.js`) + nota do módulo tocado em `.memory/01-arquitetura/` → skill `atualizar-historico` → commit atômico no `HEAD` → push (`Dev` para repos Nitro; `main`/`Dev` para repos pessoais).
+6. **Entrega:** rodar de novo o codemap (`codemap_generator.js`) + nota do módulo tocado em `.memory/01-arquitetura/` → skill `atualizar-historico` → commit atômico no `HEAD` → push (`origin main`).
 
 Regras sempre ativas: Auto-Pilot no PC pessoal · economia estrita de tokens via Obsidian Engine · limite de 350 linhas.

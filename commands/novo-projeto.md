@@ -16,6 +16,6 @@ Execute na ordem:
      `node "C:/Users/Pichau/.claude/skills/obsidian-engine/scripts/codemap_generator.js" "C:/Projetos/<app>"`
      (cria `.memory/` + codemap e registra `.memory/` em `.git/info/exclude`).
 3. **Pipeline de qualidade:** `revisor-codigo` → `seguranca` → `testador` (build + E2E) → `pentester` → `tech-lead`.
-4. **Entrega:** atualizar codemap + nota do módulo em `.memory/01-arquitetura/` (skill `obsidian-engine`) → skill `atualizar-historico` → commit atômico → push (`Dev` para repos Nitro; `main`/`Dev` para repos pessoais).
+4. **Entrega:** atualizar codemap + nota do módulo em `.memory/01-arquitetura/` (skill `obsidian-engine`) → skill `atualizar-historico` → commit atômico → push (`origin main`).
 
 Regras sempre ativas: Auto-Pilot no PC pessoal · economia estrita de tokens via Obsidian Engine · limite de 350 linhas.
