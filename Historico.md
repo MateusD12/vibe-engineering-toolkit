@@ -13,9 +13,21 @@
   - **Atualização das Diretrizes Globais:** `CLAUDE.md` e `GEMINI.md` atualizados com as regras da Stack $0.
 - **Impacto:** O ecossistema passa a permitir prototipagem e desenvolvimento de features de IA ilimitadas com R$ 0,00 de custo de API.
 
+### Expansão Multimodal & Inteligência: Voz Local, SEO Técnico & Benchmarks Financeiros (25/10/2026)
+- **Contexto:** Incorporação de superpoderes derivados dos repositórios VoiceStudio, Paperclip, Vibe-Trading, Gods-Eye-View, OpenMAIC, Magnitude e OpenSEO.
+- **Ação:**
+  - **Síntese de Voz Local ($0 ElevenLabs):** Criação da skill `skills/voz-audio-local` baseada no VoiceStudio, permitindo gerar falas de NPCs para mods, locução para o Mesa TCG e áudio-coach para o FitQuest sem gastar tokens.
+  - **SEO Técnico & Core Web Vitals:** Criação da skill `skills/seo-tecnico` inspirada no OpenSEO para auditoria de SSR/SSG, metatags, schema JSON-LD e Web Vitals.
+  - **Inteligência de Mercado no App Cartão:** Incorporação de benchmarks de CDI/Selic e dados abertos inspirados no Vibe-Trading em `skills/catalogo-apis-gratuitas`.
+- **Impacto:** O toolkit cobre agora áudio neural local, SEO técnico completo e inteligência financeira sem custos de API.
+
 ---
 
 ## Histórico de Alterações
+
+### 25 de Outubro de 2026 — Expansão Multimodal (Voz Local, SEO Técnico & Vibe-Trading)
+- **O que foi feito:** Criação de `skills/voz-audio-local/SKILL.md` e `skills/seo-tecnico/SKILL.md`. Atualização de `skills/catalogo-apis-gratuitas/SKILL.md`, `README.md` e sincronização global.
+- **Arquivos alterados:** `skills/voz-audio-local/SKILL.md`, `skills/seo-tecnico/SKILL.md`, `skills/catalogo-apis-gratuitas/SKILL.md`, `README.md`, `Historico.md`.
 
 ### 25 de Outubro de 2026 — Upgrade Powerhouse (Ollama, Scrapling, Free APIs & Auto-Cura)
 - **O que foi feito:** Criação das skills `ollama-local-llm`, `scrapling-crawler`, `catalogo-apis-gratuitas`, `mcp-catalog`, `ciclo-auto-cura` e upgrade de `analista-custo-nuvem`. Atualização de `CLAUDE.md` e `GEMINI.md`.

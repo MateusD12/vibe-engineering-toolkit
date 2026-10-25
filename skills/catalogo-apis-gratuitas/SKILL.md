@@ -35,7 +35,7 @@ Guia de integração rápida de APIs abertas, sem chave ou com tiers gratuitos g
 
 ---
 
-### 💳 3. App Cartão / Finanças Pessoais
+### 💳 3. App Cartão / Finanças Pessoais & Inteligência de Mercado
 - **API de Dados Abertos do Banco Central do Brasil (SGS)**:
   - *O que faz:* Cotações oficiais de moedas (Dólar, Euro), IPCA, Selic, CDI, IGP-M e indicadores econômicos históricos e atuais do Brasil.
   - *Endpoint:* `https://api.bcb.gov.br/dados/serie/bcdata.sgs.{codigo_serie}/dados?formato=json`
@@ -46,6 +46,8 @@ Guia de integração rápida de APIs abertas, sem chave ou com tiers gratuitos g
 - **BrasilAPI** (`https://brasilapi.com.br`):
   - *O que faz:* Consulta gratuita de CEP, CNPJ, bancos brasileiros (código COMPE/ISPB), feriados nacionais e tabela FIPE.
   - *Autenticação:* Sem chave, 100% aberta.
+- **Mercado & Benchmarks Financeiros (Padrão Vibe-Trading)**:
+  - *O que faz:* Dados abertos de índices de mercado (IBOV, CDI acumulado, inflação IPCA) e cotações históricas para comparar gastos com custo de oportunidade de investimentos.
 
 ---
 
