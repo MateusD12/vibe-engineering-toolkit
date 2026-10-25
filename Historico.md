@@ -1,19 +1,25 @@
 # Histórico do Projeto — Vibe Engineering Toolkit
 
-## Estado Atual do Projeto (24 de Outubro de 2026)
+## Estado Atual do Projeto (25 de Outubro de 2026)
 
-### Pente-Fino Global & Ativação do Modo Turbo Universal (24/10/2026)
-- **Contexto:** Garantir que qualquer sessão nova aberta (seja em jogos, engenharia reversa, aplicativos web/mobile, backend ou ferramentas desktop) opere automaticamente no Modo Turbo (Auto-Pilot + Obsidian Engine Universal + Ondas Paralelas + Quality Gate de 350 linhas + Pipeline de Agentes).
+### Upgrade Powerhouse: Inferência Local $0, APIs Gratuitas, Stealth Scraping & Auto-Cura (25/10/2026)
+- **Contexto:** Transformar a máquina local e o toolkit em uma potência de desenvolvimento livre de custos de tokens e assinaturas de APIs, aproveitando as melhores práticas dos 10 repositórios de referência (`ollama`, `Scrapling`, `public-apis`, `free-for-dev`, `OpenHands`, `awesome-mcp-servers`).
 - **Ação:**
-  - **Obsidian Engine Universal (`codemap_generator.js`):** Expansão do extrator AST zero-dependências para suportar **C/C++** (`.c`, `.cpp`, `.cc`, `.h`, `.hpp`), **C#** (`.cs`), **Rust** (`.rs`), **Go** (`.go`) e **Lua** (`.lua`), além de TS/JS/React, Python e SQL. Pré-indexação imediata de todos os repositórios locais do workspace.
-  - **Hook Global `lembrar-fluxo.js` e Slash Commands (`/atualizar`, `/novo-projeto`):** Incorporados ao toolkit e atualizados para injetar automaticamente os gatilhos de Jogos/Engenharia Reversa, VR 6DOF, Ports Wasm, Sanitização/350 linhas, Ondas Paralelas e Obsidian Engine em toda tarefa técnica.
-  - **Auto-Pilot `settings.json` (`templates/claude-settings.json`):** Whitelist expandida com segurança para compiladores e ferramentas do ecossistema (`um`, `uv`, `cmake`, `ninja`, `clang++`, `cargo`, `csc`, `7z`, `vercel`, `curl`, `rg`), eliminando interrupções de permissão sem abrir brechas destrutivas.
-  - **Sincronização Cross-Repo:** Alinhamento com os repositórios privados de trabalho (motor de mapa de código, catálogo de agentes e app 3D de acompanhamento), incluindo correção de segurança na validação de `Origin`/`Host` e adição dos 4 agentes de jogos.
-- **Impacto:** Qualquer conversa nova já nasce com o mapa de código gerado, permissões liberadas, hook ativo e todos os 25 agentes e 25 skills sincronizados entre Claude Code (`~/.claude`) e Antigravity/Gemini (`~/.gemini`).
+  - **Inferência Local $0 Tokens (`skills/ollama-local-llm`):** Padrão de integração com Ollama via endpoint OpenAI compatível (`http://localhost:11434/v1`). Roteamento de tarefas em lote, categorização de extratos para o `app-cartao`, regras de cartas para o `mesa-tcg` e rotinas de treino para o `fitquest` sem consumir créditos do Gemini ou Claude.
+  - **Stealth Web Scraping (`skills/scrapling-crawler`):** Framework de scraping ultrarrápido em Python com Scrapling + Camoufox para contornar Cloudflare e Turnstile e extrair documentação e dados públicos de forma indetectável.
+  - **Catálogo de APIs Abertas & Free-for-Dev (`skills/catalogo-apis-gratuitas`):** Mapeamento cirúrgico de APIs gratuitas e sem chave por projeto (Scryfall para TCG, Open Food Facts para Fitness, Banco Central/AwesomeAPI para Finanças) e arquitetura de infraestrutura com custo zero (Supabase Free, Cloudflare R2/Workers, Neon, Turso).
+  - **Catálogo Curado MCP (`skills/mcp-catalog`):** Seleção dos melhores servidores MCP para Ollama local, SQLite, PostgreSQL e Playwright.
+  - **Ciclo de Auto-Cura Autônomo (`skills/ciclo-auto-cura`):** Padrão inspirado no OpenHands para auto-correção de código via análise de stderr/diagnósticos em até 3 iterações antes de solicitar intervenção humana.
+  - **Atualização das Diretrizes Globais:** `CLAUDE.md` e `GEMINI.md` atualizados com as regras da Stack $0.
+- **Impacto:** O ecossistema passa a permitir prototipagem e desenvolvimento de features de IA ilimitadas com R$ 0,00 de custo de API.
 
 ---
 
 ## Histórico de Alterações
+
+### 25 de Outubro de 2026 — Upgrade Powerhouse (Ollama, Scrapling, Free APIs & Auto-Cura)
+- **O que foi feito:** Criação das skills `ollama-local-llm`, `scrapling-crawler`, `catalogo-apis-gratuitas`, `mcp-catalog`, `ciclo-auto-cura` e upgrade de `analista-custo-nuvem`. Atualização de `CLAUDE.md` e `GEMINI.md`.
+- **Arquivos alterados:** `skills/ollama-local-llm/SKILL.md`, `skills/scrapling-crawler/SKILL.md`, `skills/catalogo-apis-gratuitas/SKILL.md`, `skills/mcp-catalog/SKILL.md`, `skills/ciclo-auto-cura/SKILL.md`, `skills/analista-custo-nuvem/SKILL.md`, `CLAUDE.md`, `GEMINI.md`, `Historico.md`.
 
 ### 24 de Outubro de 2026 — Pente-Fino Global & Modo Turbo Universal
 - **O que foi feito:** Upgrade multi-linguagem no `codemap_generator.js` (C/C++/C#/Rust/Go/Lua), criação de `hooks/lembrar-fluxo.js`, `commands/atualizar.md`, `commands/novo-projeto.md` e `templates/claude-settings.json`, evolução do `scripts/install.ps1` e pré-indexação `.memory/` em todos os repositórios do workspace.

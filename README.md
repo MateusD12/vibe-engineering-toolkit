@@ -1,12 +1,13 @@
 # ⚡ Vibe Engineering Toolkit
 
-**O Mega Toolkit de Engenharia de Agentes, Economia Estrita de Tokens, Quality Gates e Engenharia Reversa de Jogos.**
+**O Mega Toolkit de Engenharia de Agentes, Economia Estrita de Tokens, Quality Gates, Engenharia Reversa e Stack $0.**
 
 Um sistema integrado e unificado que combina:
 1. O esquadrão completo de **24 Agentes Especialistas** (desenvolvimento web, backend, mobile, segurança, qa e jogos).
 2. A economia extrema de tokens do **Obsidian Engine** com AST local de custo zero.
 3. As diretrizes matemáticas de **Orquestração em Ondas Paralelas** e **Quality Gates rígidos** (limite de 350 linhas).
 4. O ecossistema de **Engenharia Reversa, Ports Nativos e Modding de Jogos** com automação via CLI `um` (`universal-modder`).
+5. A **Stack $0**: Inferência local de IA via Ollama, stealth web scraping via Scrapling, catálogo de APIs gratuitas e ciclo de auto-cura autônomo (OpenHands pattern).
 
 Compatível nativamente com **Claude Code**, **Google Antigravity / Gemini**, **OpenAI Codex** e **OmniRoute Gateway**.
 
@@ -19,10 +20,13 @@ flowchart TD
     A["🎯 Intenção / Demanda"] --> B["🧭 Coordenador & Arquiteto"]
     B --> C["🗺️ Obsidian Engine (AST Signatures)"]
     C --> D["🌊 Orquestração em Ondas Paralelas"]
-    D --> E["🤖 25 Agentes Especialistas (Arquivos Disjuntos)"]
-    E --> F["🎮 Pipeline de Engenharia Reversa & Jogos (CLI um)"]
-    F --> G["🛡️ Quality Gates (350 Linhas + OWASP + RLS)"]
-    G --> H["🚀 Commit Atômico no HEAD + Histórico.md"]
+    D --> E["🤖 24 Agentes Especialistas (Arquivos Disjuntos)"]
+    E --> F["🎮 Pipeline de Engenharia Reversa (CLI um)"]
+    E --> G["⚡ Stack $0 (Ollama + Scrapling + APIs Gratuitas)"]
+    F --> H["🛡️ Quality Gates (350 Linhas + OWASP + RLS)"]
+    G --> H
+    H --> I["🔄 Ciclo de Auto-Cura Autônomo (OpenHands)"]
+    I --> J["🚀 Commit Atômico no HEAD + Histórico.md"]
 ```
 
 ### 1. 🧠 Obsidian Engine (Economia de Tokens a Custo Zero)
@@ -52,6 +56,12 @@ flowchart TD
   - `um kb search`: busca offline ultrarrápida em mais de 100 notas de campo de engenharia reversa.
   - `um comfy`: geração local de texturas e assets via ComfyUI a custo zero.
 - **Pipeline de Descompilação e Recompilação Estática:** Suporte a Ghidra headless, ILSpy, Cpp2IL, objdiff (MWCC matching) e reconstrução de ports para PC (SDL2/CMake).
+
+### 5. ⚡ Stack $0: Inferência Local, APIs Abertas & Auto-Cura
+- **Inferência Local via Ollama:** Modelos de linguagem rodando 100% no hardware local (`http://localhost:11434/v1`) com compatibilidade OpenAI. Custo zero de tokens para processamento em lote, regras de jogos, categorização financeira e testes.
+- **Web Scraping Indetectável com Scrapling:** Extração com Camoufox de dados públicos e fóruns sem bloqueios por Cloudflare ou Turnstile.
+- **Catálogo de APIs Gratuitas e Free-for-Dev:** Mapeamento de APIs abertas (Scryfall para TCG, Open Food Facts para Fitness, Banco Central/AwesomeAPI para Finanças) e arquiteturas de nuvem sem custo mensal (Supabase Free, Cloudflare R2/Workers, Neon, Turso).
+- **Ciclo de Auto-Cura Autônomo:** Loop inspirado no OpenHands para detectar diagnósticos de erro em stdout/stderr, aplicar correções pontuais e retestar iterativamente até o sinal verde.
 
 ---
 
@@ -103,50 +113,44 @@ chmod +x ./scripts/install.sh
 
 ---
 
-## 🛠️ Catálogo das 23 Skills Globais Inclusas
+## 🛠️ Catálogo das Skills Globais
 
 1. **`obsidian-engine`:** Motor global de economia de tokens com `codemap_generator.js`, grafo `imports.md` e cofre `.memory/`.
-2. **`orquestracao-ondas`:** Protocolo matemático de execução de subagentes em ondas paralelas.
-3. **`sanitizacao-codigo`:** Pente-fino cirúrgico de código legado com medição antes vs. depois.
-4. **`engenharia-reversa-jogos`:** Guia mestre de decompilação, recompilação estática, ports nativos e CLI `um`.
-5. **`reverse-engineering`:** Fluxo completo de inspeção de código real (Ghidra, ILSpy, Cpp2IL, Frida, RenderDoc).
-6. **`vr-game-modding`:** Conversão de jogos para Realidade Virtual (VR 6DOF), perfis UEVR e injeção OpenXR.
-7. **`wasm-game-ports`:** Portabilidade para navegador via WebAssembly, WebGL/WebGPU e File System Access API imune a DMCA.
-8. **`game-recon`:** Reconhecimento automático de arquitetura de jogos e mapeamento de rotas de hooking.
-9. **`game-automation`:** Automação nativa do Windows (PowerShell/C#) para screenshots, gravação e inputs.
-10. **`asset-pipeline`:** Conversão de modelos 3D e texturas em spritesheets e formatos de engine.
-11. **`fal-assets`:** Pipeline generativo via Fal.ai para modelos 3D, texturas PBR, áudio e sprites.
-12. **`mod-any-game`:** Loop completo de desenvolvimento de mods (intake $\rightarrow$ recon $\rightarrow$ lab $\rightarrow$ verify $\rightarrow$ publish).
-13. **`mashup-mods`:** Integração entre engines diferentes via WebSockets, IPC e compositing de profundidade.
-14. **`port-a-mod`:** Portabilidade de modificações entre versões de engines ou plataformas.
-15. **`publish-mod`:** Verificação pré-lançamento para garantir integridade e ausência de binários proprietários.
-16. **`share-field-notes`:** Documentação estruturada de notas de campo para enriquecer a base de conhecimento.
-17. **`showcase-video`:** Edição e renderização automatizada de vídeos de demonstração de mods.
-18. **`game-research-websearch`:** Pesquisa técnica aprofundada de engines e formatos não documentados.
-19. **`atualizar-historico`:** Mantém o `Historico.md` sincronizado a cada ciclo atômico.
-20. **`configurar-pwa` & `gerar-icones-pwa`:** Transforma apps web em Progressive Web Apps instaláveis.
-21. **`checkup-pc`:** Auditoria de performance, saúde e storage do ambiente de desenvolvimento.
-22. **`lovable-economia`:** Otimização e consolidação de prompts em plataformas low-code.
-23. **`compliance-privacy`:** Diretrizes de segurança de dados e privacidade em conformidade.
-
----
-
-## 📋 Prompts Prontos para Uso
-
-Na pasta [`prompts/`](prompts/):
-- **`01-project-sanitation.md`:** Pente-fino de código morto, warnings e dependências.
-- **`02-parallel-wave-dispatch.md`:** Despacho de subagentes em ondas paralelas.
-- **`03-existing-project-onboarding.md`:** Onboarding e diagnóstico completo de repositório legado.
-- **`04-next-project-bootstrap.md`:** Inicialização de projeto moderno com Next.js e TypeScript.
-- **`05-security-review.md`:** Auditoria de segurança diferencial e políticas RLS.
-- **`06-file-size-refactor-350.md`:** Fatiamento sistemático de arquivos que passaram de 350 linhas.
+2. **`ollama-local-llm`:** Inferência local a custo zero ($0 tokens) via endpoint OpenAI em `localhost:11434/v1`.
+3. **`scrapling-crawler`:** Web scraping de alta velocidade e bypass de Cloudflare/Turnstile com Scrapling & Camoufox.
+4. **`catalogo-apis-gratuitas`:** Guia prático de APIs públicas gratuitas (TCG, Fitness, Finanças) e infraestrutura Free-for-Dev ($0).
+5. **`ciclo-auto-cura`:** Loop autônomo inspirado no OpenHands para validação e auto-correção de falhas de compilação/testes.
+6. **`mcp-catalog`:** Catálogo curado de servidores MCP (Ollama, SQLite, Postgres, Playwright).
+7. **`orquestracao-ondas`:** Protocolo matemático de execução de subagentes em ondas paralelas.
+8. **`sanitizacao-codigo`:** Pente-fino cirúrgico de código legado com medição antes vs. depois.
+9. **`analista-custo-nuvem`:** Análise preditiva de faturas, egress e custo de chamadas de LLM.
+10. **`engenharia-reversa-jogos`:** Guia mestre de decompilação, recompilação estática, ports nativos e CLI `um`.
+11. **`reverse-engineering`:** Fluxo completo de inspeção de código real (Ghidra, ILSpy, Cpp2IL, Frida, RenderDoc).
+12. **`vr-game-modding`:** Conversão de jogos para Realidade Virtual (VR 6DOF), perfis UEVR e injeção OpenXR.
+13. **`wasm-game-ports`:** Portabilidade para navegador via WebAssembly, WebGL/WebGPU e File System Access API imune a DMCA.
+14. **`game-recon`:** Reconhecimento automático de arquitetura de jogos e mapeamento de rotas de hooking.
+15. **`game-automation`:** Automação nativa do Windows (PowerShell/C#) para screenshots, gravação e inputs.
+16. **`asset-pipeline`:** Conversão de modelos 3D e texturas em spritesheets e formatos de engine.
+17. **`fal-assets`:** Pipeline generativo via Fal.ai para modelos 3D, texturas PBR, áudio e sprites.
+18. **`mod-any-game`:** Loop completo de desenvolvimento de mods (intake $\rightarrow$ recon $\rightarrow$ lab $\rightarrow$ verify $\rightarrow$ publish).
+19. **`mashup-mods`:** Integração entre engines diferentes via WebSockets, IPC e compositing de profundidade.
+20. **`port-a-mod`:** Portabilidade de modificações entre versões de engines ou plataformas.
+21. **`publish-mod`:** Verificação pré-lançamento para garantir integridade e ausência de binários proprietários.
+22. **`share-field-notes`:** Documentação estruturada de notas de campo para enriquecer a base de conhecimento.
+23. **`showcase-video`:** Edição e renderização automatizada de vídeos de demonstração de mods.
+24. **`game-research-websearch`:** Pesquisa técnica aprofundada de engines e formatos não documentados.
+25. **`atualizar-historico`:** Mantém o `Historico.md` sincronizado a cada ciclo atômico.
+26. **`configurar-pwa` & `gerar-icones-pwa`:** Transforma apps web em Progressive Web Apps instaláveis.
+27. **`checkup-pc`:** Auditoria de performance, saúde e storage do ambiente de desenvolvimento.
+28. **`lovable-economia`:** Otimização e consolidação de prompts em plataformas low-code.
+29. **`compliance-privacy`:** Diretrizes de segurança de dados e privacidade em conformidade.
 
 ---
 
 ## 🌐 Integração com OmniRoute e Monitoramento Remoto
 
 Este toolkit integra-se nativamente com:
-- **OmniRoute AI Gateway:** Permite alternar dinamicamente entre Claude Opus 4.6, Claude Sonnet 4.6, Gemini 3.1 Pro, GPT-4o e DeepSeek-R1 através do endpoint local `http://localhost:20128/v1`.
+- **OmniRoute AI Gateway:** Permite alternar dinamicamente entre Claude Opus, Claude Sonnet, Gemini Pro, GPT-4o e DeepSeek através de gateway unificado.
 - **Gêmeo Digital 3D & Dispatch Remoto:** Compatível com visualização 3D de sessões ativas e despacho de tarefas via GitHub Issues.
 
 ---

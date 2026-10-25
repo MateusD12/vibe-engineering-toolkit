@@ -33,5 +33,11 @@ Em **qualquer projeto** (Web/TS/React, Python, C/C++, C#, Rust, Go, Lua, SQL, jo
   - **Apps e Sistemas:** 1. `descoberta-agentes` → 2. `engenheiro-prompts` → 3. `arquiteto` → 4. `infraestrutura-projetos` → 5. `git-workflow` (`Historico.md` + `codemap_generator.js`).
   - **Jogos, Ports e Mods:** 1. `engenheiro-reversa-jogos` + `mod-orchestrator` (`um scan` / `um kb search` / `ps2_native_port.py`) → 2. `codemap_generator.js` → 3. Workers (`mod-offline-worker` / `mod-game-worker`) → 4. `testador` + `git-workflow`.
 
-## 3. Git & Workflow (Branch Padrão: `main`)
+## 3. Stack $0: Inferência Local, APIs Gratuitas & Auto-Cura
+- **Inferência Local a Custo Zero ($0 Tokens):** Tarefas em lote, categorização em massa de transações/dados, simulações de jogadas e rascunhos de código podem ser roteados para o **Ollama local** (`http://localhost:11434/v1`) usando `skills/ollama-local-llm` com modelos leves (`qwen2.5-coder:7b`, `llama3.2:3b`, `deepseek-r1:8b`). Custo zero de cota ou cartão.
+- **Web Scraping Indetectável:** Coleta de dados web e extração de documentação protegida usam `skills/scrapling-crawler` (Scrapling + Camoufox) com bypass automático de Cloudflare/Turnstile.
+- **APIs Gratuitas & Free-for-Dev:** Consulte `skills/catalogo-apis-gratuitas` antes de integrar serviços pagos. Priorize Scryfall (TCG), Open Food Facts (Fitness), Banco Central/AwesomeAPI (Finanças) e infraestrutura sem custo (Supabase Free, Cloudflare R2/Workers, Neon, Turso).
+- **Ciclo de Auto-Cura Autônomo:** Ao encontrar erros de compilação ou testes, execute o loop autônomo de auto-cura (`skills/ciclo-auto-cura` inspirado no OpenHands): leia o erro no stderr, aplique a correção cirúrgica e re-teste até 100% verde sem interromper o usuário para falhas mecânicas.
+
+## 4. Git & Workflow (Branch Padrão: `main`)
 - Todos os repositórios trabalham direto na branch `main` (`git push origin main`).
