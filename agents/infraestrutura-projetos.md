@@ -6,7 +6,7 @@ description: Referencia de infraestrutura compartilhada (Supabase/Vercel/GitHub/
 # Agente: Infraestrutura de Projetos
 
 ## Papel
-Define e aplica as regras de infraestrutura para os projetos em `C:\Projetos\`, diferenciando claramente entre **projetos pessoais (`MateusD12`)** e **projetos corporativos (`nitro-vibecoding` / `technitro-delivery`)**.
+Define e aplica as regras de infraestrutura para os projetos em `C:\Projetos\`, diferenciando claramente entre **projetos pessoais (`MateusD12`)** e **projetos corporativos (`<org-corporativa>`)**.
 
 ---
 
@@ -14,16 +14,16 @@ Define e aplica as regras de infraestrutura para os projetos em `C:\Projetos\`, 
 
 | Serviço   | Conta                   | Detalhe                                           |
 |-----------|-------------------------|---------------------------------------------------|
-| Supabase  | madadasa1@gmail.com     | Projeto "Financeiro" — ref `bgoteptsgdqwnlgqdzjg` |
-| Vercel    | madadasa1@gmail.com     | Deploy direto permitido via Vercel                |
+| Supabase  | <seu-email-pessoal>     | Projeto "Financeiro" — ref `<project-ref>` |
+| Vercel    | <seu-email-pessoal>     | Deploy direto permitido via Vercel                |
 | GitHub    | MateusD12               | Repositórios em `github.com/MateusD12`            |
-| Google OAuth | madadasa1@gmail.com  | Provider "google" configurado no Supabase Auth    |
+| Google OAuth | <seu-email-pessoal>  | Provider "google" configurado no Supabase Auth    |
 
 ### Credenciais Supabase Pessoal (projetos web pessoais)
 ```typescript
 // src/lib/supabase.ts
-const SUPABASE_URL      = 'https://bgoteptsgdqwnlgqdzjg.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJnb3RlcHRzZ2Rxd25sZ3FkempnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1NTk4MDgsImV4cCI6MjA5MTEzNTgwOH0.Kt7euMlb17AaT99e_sBzFjdUClXzdkw9dymOI4ws4xo'
+const SUPABASE_URL      = 'https://<project-ref>.supabase.co'
+const SUPABASE_ANON_KEY = '<anon-key-do-projeto>'  // fica no .env, nunca no repositório
 ```
 
 ### Google OAuth — Padrão para Projetos Pessoais
@@ -38,18 +38,18 @@ export async function signInWithGoogle() {
 
 ---
 
-## 2. Projetos Corporativos Nitro (`MateusDas12` — `nitro-vibecoding` / `technitro-delivery`)
+## 2. Projetos Corporativos (`<conta-corporativa>` — `<org-corporativa>`)
 
 | Serviço   | Conta / Org             | Regra                                             |
 |-----------|-------------------------|---------------------------------------------------|
-| GitHub    | `MateusDas12`           | Branch padrão: **`Dev`** (`git clone --branch Dev`). Nunca push direto na `main`. |
-| Supabase  | Org "Nitro"             | Leitura livre; escrita via migration + RLS ativa. |
-| Lovable   | Workspace Nitro         | Hospedagem + conexão; alterações de código via commit na branch `Dev`. |
+| GitHub    | `<conta-corporativa>`           | Branch padrão: **`Dev`** (`git clone --branch Dev`). Nunca push direto na `main`. |
+| Supabase  | Org corporativa         | Leitura livre; escrita via migration + RLS ativa. |
+| Lovable   | Workspace corporativo   | Hospedagem + conexão; alterações de código via commit na branch `Dev`. |
 
 ### Alternância de Contas GitHub na Máquina (`gh`)
-Como as duas contas (`MateusD12` e `MateusDas12`) estão autenticadas no GitHub CLI:
+Como as duas contas (`MateusD12` e `<conta-corporativa>`) estão autenticadas no GitHub CLI:
 - Para projetos pessoais: `gh auth switch --user MateusD12`
-- Para projetos Nitro: `gh auth switch --user MateusDas12`
+- Para projetos corporativos: `gh auth switch --user <conta-corporativa>`
 
 ---
 

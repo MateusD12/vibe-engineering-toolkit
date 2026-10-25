@@ -7,6 +7,7 @@ Uso:  py avaliar_harness.py [pasta-dos-projetos] [--geral]
 Só lê: não altera repositório, não faz commit, não posta nada.
 """
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
@@ -60,7 +61,7 @@ def avalia_repo(repo: Path):
 def avalia_geral(horas=48):
     desde = (datetime.now(timezone.utc) - timedelta(hours=horas)).strftime('%Y-%m-%dT%H:%M:%SZ')
     try:
-        r = subprocess.run(['gh', 'api', 'repos/nitro-vibecoding/claude-comando/issues/1/comments', '--paginate',
+        r = subprocess.run(['gh', 'api', f"repos/{os.environ.get('CONSOLE_REPO', 'SEU-ORG/SEU-CONSOLE')}/issues/1/comments", '--paginate',
                             '-q', f'[.[]|select(.created_at>"{desde}")|{{id,created_at,body:.body[0:200]}}]'],
                            capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=60)
         itens = []

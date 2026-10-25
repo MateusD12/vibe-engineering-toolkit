@@ -45,12 +45,12 @@ Fica: relato de erro, pedido de campo/tela/relatório novo, dado errado, pedido 
 
 **PROJETO NOVO ≠ chamado de ajuste (fluxo próprio — confirmado pela Indicadores 09/09):** se a pessoa quer criar um app novo / substituir uma ferramenta / projeto que ainda não existe, NÃO é ajuste e não vai para sessão de projeto. Fluxo oficial (decidido com o Ciber 01/09):
 1. Usuário faz o **protótipo pelo Claude** primeiro (fora do Lovable, sem gastar crédito).
-2. Abre **solicitação na ZAIA**. Toda **sexta** o **Comitê de GMUD** decide: sobe pro Lovable OU um app existente já resolve.
-3. Aprovado → **o Paulo assume a subida** (configura SSO + banco). Depois disso o usuário só faz ajustes pequenos.
+2. Abre **solicitação na ferramenta de demandas**. Toda **sexta** o **Comitê de GMUD** decide: sobe pro Lovable OU um app existente já resolve.
+3. Aprovado → **o responsável de plataforma assume a subida** (configura SSO + banco). Depois disso o usuário só faz ajustes pequenos.
 4. **Não começar a construir antes do GMUD aprovar.** Sem atalho.
-5. Teto de **100 créditos/mês por usuário**; estouro = chamado aprovado por Roberto Carlos + Tiago Lucena.
-Quando aprovado vira projeto, o `engenheiro-prompts` transforma a ideia em prompt + roteiro de teste antes do código; todo projeto novo nasce GitHub-first (repo TechNitro, branch Dev, clonado local; banco ajustado direto pelo Supabase MCP).
-**A triagem só entra DEPOIS da aprovação** (no roteamento dos ajustes). Papel da **Indicadores**: NÃO é intake nem decide — ela registra o **custo evitado** quando o app substitui ferramenta de terceiro (mandar p/ ela: nome da ferramenta atual + custo/mês). Alerta técnico: **puxar dados do Databricks NÃO é o padrão Supabase** — passar pelo `arquiteto` e pelo `analista-custo-nuvem` antes de prometer prazo (custo de egress/consulta). Decisão Databricks × Power Automate com o Bruno Jordão (ver [[regra-automacao-sharepoint-power-automate]]).
+5. Teto de **100 créditos/mês por usuário**; estouro = chamado aprovado pelos gestores responsáveis.
+Quando aprovado vira projeto, o `engenheiro-prompts` transforma a ideia em prompt + roteiro de teste antes do código; todo projeto novo nasce GitHub-first (repo da org corporativa, branch Dev, clonado local; banco ajustado direto pelo Supabase MCP).
+**A triagem só entra DEPOIS da aprovação** (no roteamento dos ajustes). Papel da **Indicadores**: NÃO é intake nem decide — ela registra o **custo evitado** quando o app substitui ferramenta de terceiro (mandar p/ ela: nome da ferramenta atual + custo/mês). Alerta técnico: **puxar dados do Databricks NÃO é o padrão Supabase** — passar pelo `arquiteto` e pelo `analista-custo-nuvem` antes de prometer prazo (custo de egress/consulta). Decisão Databricks × Power Automate com o responsável de dados (ver [[regra-automacao-sharepoint-power-automate]]).
 
 **Falso alarme conhecido (não é chamado):** "tela branca", "ficou só carregando", "travou carregando" **no preview do Lovable** costuma ser glitch do preview/navegador, não bug do app. A orientação é usar o **link publicado** do projeto. Só vira chamado se o erro persistir também no link publicado. Não confundir o sintoma "carregando" com um bug real — pedir a evidência (o que aparece no link publicado) antes de rotear.
 
@@ -97,7 +97,7 @@ Como despachar:
 
 Só uma coisa muda por tipo, e é dito DENTRO da mensagem para a sessão, não altera a rota: se o pedido mexe em Supabase (schema, RLS, edge function), lembrar a sessão de que isso é feito direto pelo Supabase MCP (agente supabase-sql; destrutivo só com aprovação); se é dúvida de uso, não é ajuste — devolver ao Mateus para ele responder.
 
-Exceção: Plataforma de Chamados (assisti-hub) — código via GitHub na branch `producao` (não Dev; push publica, então pedir "sim" ao Mateus), banco direto pelo Supabase MCP.
+Exceção: o app de produção (plataforma de chamados) — código via GitHub na branch `producao` (não Dev; push publica, então pedir "sim" ao Mateus), banco direto pelo Supabase MCP.
 
 ## Passo 6 — Entregar o chamado
 
@@ -135,11 +135,11 @@ A meta é a triagem operar ponta a ponta sem o Mateus reconduzir. Até lá, cada
 
 1. **Despachar o conteúdo INTEIRO e verbatim.** Encaminhar para a sessão do projeto tudo que a pessoa falou, do jeito que falou. É isso que dá ao agente de lá material para agir sozinho. Não resumir, não decidir pela sessão. Só prefixar origem + escopo.
 
-1b. **Gatilho de janela (rajada da Thayná e afins).** Quando o Mateus fecha com uma mensagem tipo "Beleza, pera ae" logo depois de a pessoa despejar vários pedidos, esse é o **sinal** para coletar TUDO que ela enviou **entre as duas mensagens do Mateus** (a anterior dele e a de fechamento) e despachar o conjunto. Varrer a janela INTEIRA, mensagem por mensagem — não parar nas que já estão em mãos. Coletar a menos é tão ruim quanto picotar. Deduplicar contra o que já foi despachado/concluído: pedido reenviado igual a um item já feito NÃO vai de novo.
+1b. **Gatilho de janela (rajada de pedidos de um mesmo usuário).** Quando o Mateus fecha com uma mensagem tipo "Beleza, pera ae" logo depois de a pessoa despejar vários pedidos, esse é o **sinal** para coletar TUDO que ela enviou **entre as duas mensagens do Mateus** (a anterior dele e a de fechamento) e despachar o conjunto. Varrer a janela INTEIRA, mensagem por mensagem — não parar nas que já estão em mãos. Coletar a menos é tão ruim quanto picotar. Deduplicar contra o que já foi despachado/concluído: pedido reenviado igual a um item já feito NÃO vai de novo.
 
 2. **Insumo novo no meio muda o que falta perguntar.** Se chegar arquivo, base, print ou mensagem nova ANTES de a resposta sair, não repita o pedido antigo: **reconcilie** o que chegou contra os pontos em aberto, descarte o que o insumo já cobriu e mantenha só o que ainda falta. O despacho não é de uma vez só nem de mão única.
 
-3. **Mensagem de saída para a pessoa é curta e direta.** Quando a triagem preparar um texto para o Mateus enviar a alguém (Marcos, Thayná, etc.), fazer no estilo dele: enxuto, só o que a pessoa precisa responder ou saber. Na dúvida, simplificar antes de mostrar. Usar a skill `estilo-mateus`. **Não enviar pergunta que não é acionável agora** — se a decisão só importa numa etapa futura, segurar e lembrar quando chegar; às vezes a saída certa é só um "apliquei" de cortesia para fechar o loop (aprendido no FP&A, 09/09).
+3. **Mensagem de saída para a pessoa é curta e direta.** Quando a triagem preparar um texto para o Mateus enviar a alguém (colegas, usuários-chave etc.), fazer no estilo dele: enxuto, só o que a pessoa precisa responder ou saber. Na dúvida, simplificar antes de mostrar. Usar a skill `estilo-mateus`. **Não enviar pergunta que não é acionável agora** — se a decisão só importa numa etapa futura, segurar e lembrar quando chegar; às vezes a saída certa é só um "apliquei" de cortesia para fechar o loop (aprendido no FP&A, 09/09).
 
 4. **As decisões voltam DENTRO da sessão do projeto, não na triagem.** A sessão de destino é que pergunta ao Mateus (RLS, item sensível, etc.). A triagem não responde essas perguntas nem age no lugar da sessão.
 
