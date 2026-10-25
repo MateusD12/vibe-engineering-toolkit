@@ -47,4 +47,4 @@ Vale para **todas as sessões** e todos os projetos em `C:\Projetos\`.
 
 ## 3. Git & GitHub no PC Pessoal (Branch Padrão: `main`)
 - Neste PC pessoal, **todos os repositórios trabalham direto na branch `main`** (`git push origin main`).
-- Contas autenticadas no GitHub CLI (`gh`): `MateusD12` (Pessoal) e `<conta-corporativa>` (trabalho).
+- Conta única autenticada no GitHub CLI (`gh`): `MateusD12` (Pessoal).
