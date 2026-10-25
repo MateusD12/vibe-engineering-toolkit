@@ -1,62 +1,49 @@
 ---
 name: infraestrutura-projetos
-description: Referencia de infraestrutura compartilhada (Supabase/Vercel/GitHub/OAuth para projetos pessoais e corporativos). Consulte ao criar projeto, configurar deploy ou registrar recurso novo.
+description: Referência de boas práticas e arquitetura de infraestrutura compartilhada (Supabase, Vercel, GitHub, OAuth). Consulte ao desenhar projeto, configurar deploy ou registrar novos recursos.
 ---
 
 # Agente: Infraestrutura de Projetos
 
 ## Papel
-Define e aplica as regras de infraestrutura para os projetos em `C:\Projetos\`, diferenciando claramente entre **projetos pessoais (`MateusD12`)** e **projetos corporativos (`<org-corporativa>`)**.
+Define e padroniza as diretrizes de infraestrutura, autenticação e deploy para projetos de software, garantindo separação rígida de ambientes, segurança de segredos e isolamento entre desenvolvimento e produção.
 
 ---
 
-## 1. Projetos Pessoais (`MateusD12` em `C:\Projetos\`)
+## 1. Padrões de Configuração e Ambientes
 
-| Serviço   | Conta                   | Detalhe                                           |
-|-----------|-------------------------|---------------------------------------------------|
-| Supabase  | <seu-email-pessoal>     | Projeto "Financeiro" — ref `<project-ref>` |
-| Vercel    | <seu-email-pessoal>     | Deploy direto permitido via Vercel                |
-| GitHub    | MateusD12               | Repositórios em `github.com/MateusD12`            |
-| Google OAuth | <seu-email-pessoal>  | Provider "google" configurado no Supabase Auth    |
+| Serviço | Papel | Prática Recomendada |
+|---|---|---|
+| **GitHub** | Versionamento e CI/CD | Branch principal `main`. Proteção contra commits acidentais de segredos via `.gitignore` rigoroso. |
+| **Supabase** | Backend, Banco PostgreSQL e Auth | Políticas RLS ativas em 100% das tabelas. Chaves públicas no `.env` do cliente; `service_role` restrita a Edge Functions/Backends. |
+| **Vercel** | Hospedagem Frontend / Serverless | Variáveis de ambiente configuradas no dashboard com isolamento por ambiente (`Preview`, `Production`). |
+| **OAuth Providers** | Provedor de Identidade | URLs de redirecionamento restritas (`localhost` para dev local e domínio canônico de produção). |
 
-### Credenciais Supabase Pessoal (projetos web pessoais)
+### Padrão de Inicialização de Cliente (ex.: Supabase)
 ```typescript
 // src/lib/supabase.ts
-const SUPABASE_URL      = 'https://<project-ref>.supabase.co'
-const SUPABASE_ANON_KEY = '<anon-key-do-projeto>'  // fica no .env, nunca no repositório
-```
+import { createClient } from '@supabase/supabase-js'
 
-### Google OAuth — Padrão para Projetos Pessoais
-```typescript
-export async function signInWithGoogle() {
-  return supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: window.location.origin + '/<rota-principal>' },
-  })
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Variáveis de ambiente do Supabase não configuradas.')
 }
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 ```
 
 ---
 
-## 2. Projetos Corporativos (`<conta-corporativa>` — `<org-corporativa>`)
+## 2. Checklist para Novos Projetos
 
-| Serviço   | Conta / Org             | Regra                                             |
-|-----------|-------------------------|---------------------------------------------------|
-| GitHub    | `<conta-corporativa>`           | Branch padrão: **`Dev`** (`git clone --branch Dev`). Nunca push direto na `main`. |
-| Supabase  | Org corporativa         | Leitura livre; escrita via migration + RLS ativa. |
-| Lovable   | Workspace corporativo   | Hospedagem + conexão; alterações de código via commit na branch `Dev`. |
-
-### Alternância de Contas GitHub na Máquina (`gh`)
-Como as duas contas (`MateusD12` e `<conta-corporativa>`) estão autenticadas no GitHub CLI:
-- Para projetos pessoais: `gh auth switch --user MateusD12`
-- Para projetos corporativos: `gh auth switch --user <conta-corporativa>`
-
----
-
-## Fluxo para Novos Projetos Pessoais
-1. Implementar o código em `C:\Projetos\<nome-projeto>`
-2. Inicializar o cofre Obsidian:
-   `node "C:/Users/Pichau/.claude/skills/obsidian-engine/scripts/codemap_generator.js" "C:/Projetos/<nome-projeto>"`
-3. Passar pelo pipeline (`revisor-codigo` → `seguranca` → `testador`)
-4. Criar repositório no GitHub (`gh repo create`) e fazer push
-5. Deploy na Vercel (se aplicável) e registrar em `.claude/projects/<nome>.md`
+1. **Repositório Git:**
+   - Inicializar repositório local e configurar `.gitignore` cobrindo `.env*`, `node_modules`, pastas de build e logs.
+2. **Cofre de Contexto e Mapeamento:**
+   - Inicializar o Obsidian Engine a custo zero:
+     `node ~/.claude/skills/obsidian-engine/scripts/codemap_generator.js <pasta-do-projeto>`
+3. **Pipeline de Qualidade:**
+   - Validar conformidade via `revisor-codigo`, `seguranca` e `testador`.
+4. **Deploy:**
+   - Configurar variáveis no provedor de hospedagem e auditar rotas sensíveis antes de publicar.

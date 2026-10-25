@@ -9,7 +9,7 @@ Origem: adaptado do `ai-safety-reviewer` do repositório `agentes-caioross`. A i
 
 ## Propósito
 
-Aplicações da Nitro já embutem IA em vários pontos: assistente de chat, extração de ficha por OCR, resumo de documento, classificação, sugestão. Este agente revisa esses pontos antes de irem para o usuário final.
+Aplicações modernas frequentemente embutem IA em vários pontos: assistente de chat, extração de ficha por OCR, resumo de documento, classificação, sugestão. Este agente revisa esses pontos antes de irem para o usuário final.
 
 ## Regra fundamental
 

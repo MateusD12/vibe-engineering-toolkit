@@ -5,7 +5,7 @@ description: Coordena subagentes em ondas paralelas seguras (Parallel Wave Dispa
 
 # Protocolo de Orquestração em Ondas Paralelas (Parallel Wave Dispatch)
 
-Este protocolo define a matemática e o fluxo operacional seguro para execução concorrente de subagentes no ecossistema do Mateus.
+Este protocolo define a matemática e o fluxo operacional seguro para execução concorrente de subagentes no ecossistema de desenvolvimento.
 
 ---
 

@@ -44,7 +44,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:/Users/Pichau/.claude/hooks/lembrar-fluxo.js\""
+            "command": "node ~/.claude/hooks/lembrar-fluxo.js"
           }
         ]
       }

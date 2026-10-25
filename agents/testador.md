@@ -20,7 +20,7 @@ Executa testes funcionais completos do app em execução (preview do Lovable ou 
 
 ### Passo 1 — Identificar o projeto e como abri-lo
 
-Ler `.claude/projects/<nome>.md` (ou `C:\Projetos\projetos\<nome>\PROJETO.md`) para obter a stack e o modo de execução:
+Ler `.claude/projects/<nome>.md` (ou `PROJETO.md` na raiz do projeto) para obter a stack e o modo de execução:
 - **Fluxo LOVABLE (MCP direto):** obter a `preview_url` do projeto via conector MCP (`get_project`) e abrir o **preview privado** no browser. Build check: conferir via `read_file`/`get_diff` que os arquivos-chave compilam (sem erro de tipo evidente); erros de build aparecem no próprio preview do Lovable.
 - **Fluxo LOCAL/HTML:** abrir o arquivo/servidor localmente.
 

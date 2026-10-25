@@ -215,7 +215,7 @@ if __name__ == '__main__':
     # só mapeia repositório de verdade: evita criar .memory/ em Downloads, OneDrive ou na pasta errada
     if not (raiz / '.git').exists() and '--forcar' not in sys.argv:
         print(f"[Obsidian Engine] {raiz} não é um repositório git. Passe a pasta do app: "
-              "py codemap_generator.py C:/Projetos/projetos/<app>   (ou --forcar)")
+              "py codemap_generator.py <caminho_do_projeto>   (ou --forcar)")
         sys.exit(1)
     if (raiz / '.git').exists():
         garante_exclusao_local(raiz)

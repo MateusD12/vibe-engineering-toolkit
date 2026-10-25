@@ -1,7 +1,7 @@
 """Avaliação do harness — confere, sem gastar tokens, se os projetos e as sessões seguem o processo.
 
 Uso:  py avaliar_harness.py [pasta-dos-projetos] [--geral]
-  - pasta padrão: C:/Projetos/projetos
+  - pasta padrão: diretório atual (ou pasta passada como argumento)
   - --geral: também confere os comentários das últimas 48 h na Geral (precisa do gh autenticado)
 
 Só lê: não altera repositório, não faz commit, não posta nada.
@@ -83,7 +83,7 @@ def avalia_geral(horas=48):
 
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
-    base = Path(args[0]) if args else Path('C:/Projetos/projetos')
+    base = Path(args[0]) if args else Path.cwd()
     linhas = [f"# Avaliação do harness — {datetime.now().strftime('%d/%m/%Y %H:%M')}", '']
     ok, ruins = [], []
     for repo in sorted(p for p in base.iterdir() if (p / '.git').exists()):

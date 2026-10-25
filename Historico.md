@@ -5,7 +5,7 @@
 ### Pente-Fino Global & Ativação do Modo Turbo Universal (24/10/2026)
 - **Contexto:** Garantir que qualquer sessão nova aberta (seja em jogos, engenharia reversa, aplicativos web/mobile, backend ou ferramentas desktop) opere automaticamente no Modo Turbo (Auto-Pilot + Obsidian Engine Universal + Ondas Paralelas + Quality Gate de 350 linhas + Pipeline de Agentes).
 - **Ação:**
-  - **Obsidian Engine Universal (`codemap_generator.js`):** Expansão do extrator AST zero-dependências para suportar **C/C++** (`.c`, `.cpp`, `.cc`, `.h`, `.hpp`), **C#** (`.cs`), **Rust** (`.rs`), **Go** (`.go`) e **Lua** (`.lua`), além de TS/JS/React, Python e SQL. Pré-indexação imediata de todos os repositórios locais em `C:\Projetos\` (incluindo 261 arquivos C++ do `PS2Recomp` e 129 arquivos do `universal-modder`).
+  - **Obsidian Engine Universal (`codemap_generator.js`):** Expansão do extrator AST zero-dependências para suportar **C/C++** (`.c`, `.cpp`, `.cc`, `.h`, `.hpp`), **C#** (`.cs`), **Rust** (`.rs`), **Go** (`.go`) e **Lua** (`.lua`), além de TS/JS/React, Python e SQL. Pré-indexação imediata de todos os repositórios locais do workspace.
   - **Hook Global `lembrar-fluxo.js` e Slash Commands (`/atualizar`, `/novo-projeto`):** Incorporados ao toolkit e atualizados para injetar automaticamente os gatilhos de Jogos/Engenharia Reversa, VR 6DOF, Ports Wasm, Sanitização/350 linhas, Ondas Paralelas e Obsidian Engine em toda tarefa técnica.
   - **Auto-Pilot `settings.json` (`templates/claude-settings.json`):** Whitelist expandida com segurança para compiladores e ferramentas do ecossistema (`um`, `uv`, `cmake`, `ninja`, `clang++`, `cargo`, `csc`, `7z`, `vercel`, `curl`, `rg`), eliminando interrupções de permissão sem abrir brechas destrutivas.
   - **Sincronização Cross-Repo:** Alinhamento com os repositórios privados de trabalho (motor de mapa de código, catálogo de agentes e app 3D de acompanhamento), incluindo correção de segurança na validação de `Origin`/`Host` e adição dos 4 agentes de jogos.
@@ -16,7 +16,7 @@
 ## Histórico de Alterações
 
 ### 24 de Outubro de 2026 — Pente-Fino Global & Modo Turbo Universal
-- **O que foi feito:** Upgrade multi-linguagem no `codemap_generator.js` (C/C++/C#/Rust/Go/Lua), criação de `hooks/lembrar-fluxo.js`, `commands/atualizar.md`, `commands/novo-projeto.md` e `templates/claude-settings.json`, evolução do `scripts/install.ps1` e pré-indexação `.memory/` em todos os repositórios de `C:\Projetos\`.
+- **O que foi feito:** Upgrade multi-linguagem no `codemap_generator.js` (C/C++/C#/Rust/Go/Lua), criação de `hooks/lembrar-fluxo.js`, `commands/atualizar.md`, `commands/novo-projeto.md` e `templates/claude-settings.json`, evolução do `scripts/install.ps1` e pré-indexação `.memory/` em todos os repositórios do workspace.
 - **Arquivos alterados:** `skills/obsidian-engine/scripts/codemap_generator.js`, `skills/obsidian-engine/README.md`, `hooks/lembrar-fluxo.js`, `commands/atualizar.md`, `commands/novo-projeto.md`, `templates/claude-settings.json`, `scripts/install.ps1`, `CLAUDE.md`, `GEMINI.md`, `Historico.md`.
 
 ### 24 de Outubro de 2026 — Adição de VR Modding, Ports Wasm e Matching Decomp

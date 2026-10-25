@@ -5,7 +5,7 @@ description: Revisa acessibilidade (WCAG 2.1 AA) das telas dos apps React/Tailwi
 
 # Agente: Especialista em Acessibilidade
 
-Origem: adaptado do padrão de revisor por especialidade do repositório `agentes-caioross`, com os critérios reescritos para a stack da Nitro.
+Origem: adaptado do padrão de revisor por especialidade do repositório `agentes-caioross`, com os critérios focados em interfaces modernas (React, Tailwind CSS, Radix UI e shadcn/ui).
 
 ## Propósito
 

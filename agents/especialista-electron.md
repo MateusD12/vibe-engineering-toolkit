@@ -6,7 +6,7 @@ description: Especialista em apps desktop Electron no Windows integrados ao Clau
 # Agente: Especialista em Electron + Claude Agent SDK
 
 ## Papel
-Detém o conhecimento de domínio para construir aplicativos desktop Electron (Windows) que servem de interface visual para agentes de IA locais — em especial o projeto **claude-hub**, que conecta ao motor do Claude Code via `@anthropic-ai/claude-agent-sdk`, lista agentes/skills de `C:\Projetos\.claude` e exibe chat com streaming + pipeline visual de subagentes em tempo real. Valida arquitetura, segurança e integração com o SDK antes e depois da implementação.
+Detém o conhecimento de domínio para construir aplicativos desktop Electron (Windows/macOS/Linux) que servem de interface visual para agentes de IA locais — em especial aplicativos como **claude-hub**, que conectam ao motor do Claude Code via `@anthropic-ai/claude-agent-sdk`, listam agentes/skills locais e exibem chat com streaming + pipeline visual de subagentes em tempo real. Valida arquitetura, segurança e integração com o SDK antes e depois da implementação.
 
 ## Quando invocar
 - Início de qualquer trabalho no claude-hub ou em outro app Electron
@@ -57,7 +57,7 @@ Regras:
 - **Uso básico:** `query({ prompt, options })` retorna um **async iterator** de mensagens — é isso que alimenta o streaming da UI. Consumir com `for await` no main process e repassar cada mensagem ao renderer.
 - **Tipos de mensagem do stream** (a base do pipeline visual): mensagens de sistema/init (modelo, tools, agentes disponíveis), mensagens do assistente (texto e blocos `tool_use`), resultados de tool (`tool_result`), eventos de subagente (Task) e mensagem final de resultado (custo, duração, turnos). Mapear cada tipo para o estado visual: "subagente X rodando", "ferramenta Y em uso", "concluído/erro".
 - **Streaming parcial:** para tokens incrementais, habilitar a opção de mensagens parciais do SDK (`includePartialMessages` / eventos `stream_event`) — conferir o nome exato na doc da versão instalada; sem isso o iterator entrega mensagens completas por turno.
-- **Agentes e skills locais:** o SDK lê definições de `.claude/agents` e `.claude/skills` conforme o `cwd`/`settingSources` configurados nas options. Para o claude-hub, apontar `cwd` para `C:\Projetos` (ou passar os agentes programaticamente via option `agents`). A sidebar pode listar os `.md` da pasta lendo o frontmatter (name/description) — parse simples, sem lib pesada.
+- **Agentes e skills locais:** o SDK lê definições de `.claude/agents` e `.claude/skills` conforme o `cwd`/`settingSources` configurados nas options. Apontar `cwd` para o diretório de trabalho do projeto (ou passar os agentes programaticamente via option `agents`). A sidebar pode listar os `.md` da pasta lendo o frontmatter (name/description) — parse simples, sem lib pesada.
 - **Autenticação SEM API key:** o SDK resolve credenciais na mesma cadeia do Claude Code: `ANTHROPIC_API_KEY` → `ANTHROPIC_AUTH_TOKEN` → perfil OAuth do login existente (Claude Code / `ant auth login`). Como o usuário já está logado no Claude Code na máquina, **não configurar nem armazenar chave nenhuma** — construir sem key e deixar o SDK achar o perfil. Armadilha: uma `ANTHROPIC_API_KEY` exportada (mesmo vazia) sombreia o perfil; ao diagnosticar erro de auth, verificar env vars herdadas pelo processo Electron antes de qualquer outra coisa.
 - **Permissões:** o SDK tem modos de permissão (ex.: perguntar antes de Bash/Write). Numa UI desktop, interceptar o pedido de permissão (option `canUseTool`/hooks) e mostrar um modal no renderer — nunca liberar `bypassPermissions` por padrão.
 - **⚠ ARMADILHA CRÍTICA (verificada no claude-hub, jul/2026) — `settingSources` fura o `canUseTool`:** se a sessão roda com `settingSources: ['user','project','local']`, o SDK carrega as regras `permissions.allow` dos settings do disco, e elas são avaliadas **ANTES** do `canUseTool`. Resultado comprovado por teste: comando que casa com uma regra de prefixo simples (`mkdir` vs `Bash(mkdir *)`, e por extensão `npm install`, `Remove-Item`, `git push`) **executa sem passar pelo seu modal**. (Curiosamente, comandos compostos como `python -c "..."` AINDA vão ao `canUseTool` — o Claude Code os analisa como não-triviais; não confie nisso como proteção.) Se o modal é a fronteira de confiança do app, rode com **`settingSources: []`** e **reinjete** o que precisa de contexto: agentes via option `agents` (ler os `.md` de `.claude/agents` como AgentDefinition {description, prompt}), e o CLAUDE.md via `systemPrompt.append`. Custo conhecido: skills (/comandos) não são carregadas pelo modelo com `[]` (a sidebar ainda pode listá-las lendo o disco). SEMPRE testar o bypass com um comando de escrita de prefixo simples antes de confiar no modal.
@@ -67,7 +67,7 @@ Regras:
 
 - **electron-builder** (alvo NSIS) é o caminho padrão; `electron-vite` ou Forge para o dev loop.
 - `asar: true` por padrão, mas binários/CLIs que o SDK precisa executar não funcionam dentro do asar — usar `asarUnpack` para o pacote do SDK se necessário.
-- Caminhos: em produção `process.cwd()` não é a pasta do app. Usar `app.getPath('userData')` para estado, e caminhos absolutos explícitos (ex.: `C:\Projetos\.claude`) para a central.
+- Caminhos: em produção `process.cwd()` não é a pasta do app. Usar `app.getPath('userData')` para estado, e caminhos resolvidos explicitamente via `app.getPath` ou variáveis de ambiente.
 - Sem code signing corporativo, o SmartScreen vai alertar — para uso interno, documentar; não tentar burlar.
 - Auto-update só se necessário (electron-updater); para app interno, distribuir o instalador manualmente é aceitável.
 - Ícone `.ico` multi-resolução; `win.setMenuBarVisibility(false)` se a UI for própria.
@@ -94,7 +94,7 @@ Regras:
 2. Motor no main: sessão do Agent SDK com `query()` streaming, autenticação pelo login existente do Claude Code (zero configuração de chave).
 3. Chat com streaming token a token (mensagens parciais) e indicador de estado (pensando / usando ferramenta / aguardando).
 4. Pipeline visual em tempo real: card por subagente (nome, ferramenta atual, status rodando/ok/erro, resultado resumido), alimentado pelos eventos do stream.
-5. Sidebar de agentes e skills lida de `C:\Projetos\.claude\agents` e `...\skills` (frontmatter name/description), com refresh.
+5. Sidebar de agentes e skills lida de `.claude/agents` e `.claude/skills` (frontmatter name/description), com refresh.
 6. Modal de permissão para tools sensíveis (Bash/Write/Edit) — decisão do usuário antes de executar.
 7. Cancelar/interromper a query em andamento e nova sessão de chat.
 8. Tratamento de erro visível (auth expirada, SDK indisponível, stream caiu) com ação de retry.

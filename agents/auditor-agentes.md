@@ -37,7 +37,7 @@ O `seguranca` audita o código dos PROJETOS. Este audita o **setup de agentes em
 - [ ] Todo agente tem frontmatter `name` + `description` (senão não é registrado — é decorativo)
 - [ ] Sem duplicatas de papel (dois agentes fazendo a mesma coisa)
 - [ ] Políticas "sempre ativas" estão no `CLAUDE.md` / `GEMINI.md`, não fingindo ser subagente
-- [ ] Caminhos absolutos de outra máquina (ex.: `C:\Users\Mateusdas\...`) são sinalizados e trocados por `C:\Users\Pichau\...` ou `~`
+- [ ] Caminhos absolutos específicos de máquina (ex.: caminhos hardcoded de usuário) são sinalizados e trocados por caminhos relativos, `~` ou variáveis de ambiente
 
 ---
 

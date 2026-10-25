@@ -9,10 +9,9 @@ description: Reverte uma alteração que quebrou um app (Lovable/GitHub/Vercel) 
 Desfazer, com segurança e rastreabilidade, a alteração que quebrou um app — **sempre por um commit novo de revert**, sem reescrever o histórico.
 
 ## Travas (não negociáveis)
-- **Nos projetos corporativos (org `<org-corporativa>`):** Só na branch `Dev` (nunca `push`, merge ou revert na `main`; exceção: o app de produção na branch `producao` apenas com confirmação explícita).
-- **Nos projetos pessoais (`MateusD12`):** Pode atuar na branch principal do projeto (`main` ou `Dev`), mantendo sempre `git revert` sem `--force`.
-- **Nunca** `git push --force`, `reset --hard` em commit já publicado, rebase/amend/squash de histórico enviado.
-- Mudança de banco (Supabase/migration): rollback de banco **não é git** — monte a migration reversa com cuidado e confirme antes de aplicar.
+- Atuar na branch principal de trabalho (`main`), mantendo sempre `git revert` at?mico sem `--force`.
+- **Nunca** executar `git push --force`, `reset --hard` em commit j? publicado, nem reescrever o hist?rico remoto.
+- Mudan?a de banco (migration): rollback de banco **n?o ? git** ? monte a migration reversa com cuidado e confirme antes de aplicar.
 
 ## Quando invocar
 - Regressão confirmada depois de um commit (tela quebrada, build falhando, número errado).

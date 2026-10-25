@@ -349,7 +349,7 @@ if (require.main === module) {
   const raiz = args[0] ? path.resolve(args[0]) : process.cwd();
 
   if (!fs.existsSync(path.join(raiz, '.git')) && !forcar) {
-    console.error(`[Obsidian Engine] ${raiz} não é um repositório git. Passe a pasta do app: node codemap_generator.js C:/Projetos/<app> (ou --forcar)`);
+    console.error(`[Obsidian Engine] ${raiz} não é um repositório git. Passe a pasta do projeto: node codemap_generator.js <caminho_do_projeto> (ou --forcar)`);
     process.exit(1);
   }
   if (fs.existsSync(path.join(raiz, '.git'))) {

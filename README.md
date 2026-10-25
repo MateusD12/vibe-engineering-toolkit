@@ -3,7 +3,7 @@
 **O Mega Toolkit de Engenharia de Agentes, Economia Estrita de Tokens, Quality Gates e Engenharia Reversa de Jogos.**
 
 Um sistema integrado e unificado que combina:
-1. O esquadrão completo de **25 Agentes Especialistas** (desenvolvimento web, backend, mobile, segurança, qa e jogos).
+1. O esquadrão completo de **24 Agentes Especialistas** (desenvolvimento web, backend, mobile, segurança, qa e jogos).
 2. A economia extrema de tokens do **Obsidian Engine** com AST local de custo zero.
 3. As diretrizes matemáticas de **Orquestração em Ondas Paralelas** e **Quality Gates rígidos** (limite de 350 linhas).
 4. O ecossistema de **Engenharia Reversa, Ports Nativos e Modding de Jogos** com automação via CLI `um` (`universal-modder`).
@@ -72,7 +72,7 @@ chmod +x ./scripts/install.sh
 
 ---
 
-## 🤖 Catálogo dos 25 Agentes Especialistas
+## 🤖 Catálogo dos 24 Agentes Especialistas
 
 | Agente | Papel | Quando Invocar |
 |---|---|---|
@@ -96,7 +96,6 @@ chmod +x ./scripts/install.sh
 | `gerador-docs` | Gera documentação clara de engenharia (README, docstrings, POP). | Ao documentar repositórios ou preparar handoffs. |
 | `gestor-dependencias` | Audita vulnerabilidades, pacotes órfãos e lockfiles. | Manutenção periódica de dependências do package.json. |
 | `analista-custo-nuvem` | Monitora custos de API, egress, Supabase, LLMs e storage. | Ao escalar funcionalidades ou integrar novos modelos de IA. |
-| `triagem-chamados` | Classifica pedidos de suporte/Teams e decide a rota de correção. | Na triagem de demandas e chamados de usuários. |
 | `agente-rollback` | Reverte commits/deploys quebrados com segurança sem force push. | Quando um deploy quebra ou precisa de rollback estável. |
 | `auditor-agentes` | Cyber security dos próprios agentes, prompts, skills e hooks. | Ao alterar configurações internas de IA ou settings. |
 | `revisor-ia` | Audita prompt injection, vazamentos de contexto e alucinação. | Em features que consomem LLM, OCR ou assistentes. |
@@ -104,9 +103,9 @@ chmod +x ./scripts/install.sh
 
 ---
 
-## 🛠️ Catálogo das 25 Skills Globais Inclusas
+## 🛠️ Catálogo das 23 Skills Globais Inclusas
 
-1. **`obsidian-engine`:** Motor global de economia de tokens com `codemap_generator.js` e cofre `.memory/`.
+1. **`obsidian-engine`:** Motor global de economia de tokens com `codemap_generator.js`, grafo `imports.md` e cofre `.memory/`.
 2. **`orquestracao-ondas`:** Protocolo matemático de execução de subagentes em ondas paralelas.
 3. **`sanitizacao-codigo`:** Pente-fino cirúrgico de código legado com medição antes vs. depois.
 4. **`engenharia-reversa-jogos`:** Guia mestre de decompilação, recompilação estática, ports nativos e CLI `um`.
@@ -126,11 +125,9 @@ chmod +x ./scripts/install.sh
 18. **`game-research-websearch`:** Pesquisa técnica aprofundada de engines e formatos não documentados.
 19. **`atualizar-historico`:** Mantém o `Historico.md` sincronizado a cada ciclo atômico.
 20. **`configurar-pwa` & `gerar-icones-pwa`:** Transforma apps web em Progressive Web Apps instaláveis.
-21. **`checkup-pc`:** Auditoria de performance, saúde e storage do computador do desenvolvedor.
-22. **`estilo-mateus`:** Padrão de escrita pessoal autêntico, técnico e sem clichês de IA.
-23. **`nitro-lovable-economia`:** Otimização de consumo de créditos em plataformas Lovable.
-24. **`nitro-app-publicado`:** Checklist pós-publicação de aplicações.
-25. **`compliance-privacy`:** Diretrizes de segurança de dados e privacidade em conformidade.
+21. **`checkup-pc`:** Auditoria de performance, saúde e storage do ambiente de desenvolvimento.
+22. **`lovable-economia`:** Otimização e consolidação de prompts em plataformas low-code.
+23. **`compliance-privacy`:** Diretrizes de segurança de dados e privacidade em conformidade.
 
 ---
 
@@ -150,7 +147,7 @@ Na pasta [`prompts/`](prompts/):
 
 Este toolkit integra-se nativamente com:
 - **OmniRoute AI Gateway:** Permite alternar dinamicamente entre Claude Opus 4.6, Claude Sonnet 4.6, Gemini 3.1 Pro, GPT-4o e DeepSeek-R1 através do endpoint local `http://localhost:20128/v1`.
-- **Escritório dos Agentes & Claude Comando:** Compatível com o gêmeo digital 3D e despacho de comandos remotos via GitHub Issues pelo celular.
+- **Gêmeo Digital 3D & Dispatch Remoto:** Compatível com visualização 3D de sessões ativas e despacho de tarefas via GitHub Issues.
 
 ---
 

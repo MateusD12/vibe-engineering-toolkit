@@ -54,10 +54,6 @@ const REGRAS = [
     "CUSTO — analista-custo-nuvem."
   ],
   [
-    /\b(chamado|teams|e-?mail|pediram|me falaram|usu[aá]rio (disse|pediu|reclamou)|qual app)/i,
-    "CHAMADO — triagem-chamados (identifica o app e a rota; despacha p/ a sessão do app)."
-  ],
-  [
     /\b(electron|desktop|agent sdk)/i,
     "DESKTOP — especialista-electron."
   ],
@@ -80,7 +76,7 @@ const REGRAS = [
 ];
 
 const OBSIDIAN =
-  'OBSIDIAN ENGINE (obrigatório, custo zero de tokens) — antes de abrir código: se <app>/.memory/02-codemap/tree-signatures.md não existir, rode `node "C:/Users/Pichau/.claude/skills/obsidian-engine/scripts/codemap_generator.js" "C:/Projetos/<app>"`; ache arquivo/linha no mapa (busque pelo nome) e leia só os trechos; passe arquivos/linhas exatos aos subagentes; no fim rode o script de novo + nota do módulo em .memory/01-arquitetura/.';
+  'OBSIDIAN ENGINE (obrigatório, custo zero de tokens) — antes de abrir código: se .memory/02-codemap/tree-signatures.md não existir, rode `node ~/.claude/skills/obsidian-engine/scripts/codemap_generator.js <projeto>`; ache arquivo/linha no mapa (busque pelo nome) e leia só os trechos; passe arquivos/linhas exatos aos subagentes; no fim rode o script de novo + nota do módulo em .memory/01-arquitetura/.';
 
 const RODAPE =
   'No relatório final inclua: "Agentes: <quem rodou> ✔" ou "não necessário: <motivo>". Dúvida/explicação simples: responder direto, sem agentes.';

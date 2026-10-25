@@ -52,10 +52,11 @@ Copy-Item -Path (Join-Path $ROOT "GEMINI.md") -Destination (Join-Path $GEMINI_RO
 Write-Host "   OK: CLAUDE.md e GEMINI.md atualizados em todos os ambientes" -ForegroundColor Green
 
 # 6. Configurar CLI um (Universal Modder) se disponivel
-if (Test-Path "C:\Projetos\universal-modder") {
+$umDir = if ($env:UM_DIR) { $env:UM_DIR } else { Join-Path (Split-Path -Parent $ROOT) "universal-modder" }
+if (Test-Path $umDir) {
     Write-Host "Configurando CLI um e base offline..." -ForegroundColor Yellow
     try {
-        [System.Environment]::SetEnvironmentVariable("UM_KB", "C:\Projetos\universal-modder\knowledge", "User")
+        [System.Environment]::SetEnvironmentVariable("UM_KB", (Join-Path $umDir "knowledge"), "User")
         Write-Host "   OK: Variavel UM_KB apontada para a base offline" -ForegroundColor Green
     }
     catch {

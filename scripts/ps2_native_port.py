@@ -16,14 +16,15 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
-# Configurações de caminhos padrão
-SEVEN_ZIP = r"C:\Program Files\7-Zip\7z.exe"
-CSC_COMPILER = r"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
-CLANG_COMPILER = r"C:\Program Files\LLVM\bin\clang++.exe"
-PORTS_DIR = Path(r"C:\Projetos\ports")
-EMU_DIR = Path(r"C:\Users\Pichau\Desktop\Jogos\PS2\Emulador")
-DESKTOP_DIR = Path(os.environ.get("USERPROFILE", r"C:\Users\Pichau")) / "Desktop"
-GAMES_PC_DIR = DESKTOP_DIR / "Jogos" / "Pc"
+# Configurações de caminhos dinâmicos e portáteis
+USER_HOME = Path.home()
+SEVEN_ZIP = os.environ.get("SEVEN_ZIP", shutil.which("7z") or r"C:\Program Files\7-Zip\7z.exe")
+CSC_COMPILER = os.environ.get("CSC_COMPILER", r"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe")
+CLANG_COMPILER = os.environ.get("CLANG_COMPILER", shutil.which("clang++") or r"C:\Program Files\LLVM\bin\clang++.exe")
+PORTS_DIR = Path(os.environ.get("PORTS_DIR", Path.cwd() / "ports"))
+DESKTOP_DIR = Path(os.environ.get("DESKTOP_DIR", USER_HOME / "Desktop"))
+EMU_DIR = Path(os.environ.get("EMU_DIR", DESKTOP_DIR / "Jogos" / "PS2" / "Emulador"))
+GAMES_PC_DIR = Path(os.environ.get("GAMES_PC_DIR", DESKTOP_DIR / "Jogos" / "Pc"))
 
 def banner():
     print("=" * 65)

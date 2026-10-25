@@ -39,7 +39,7 @@ Diga o número e a premissa. "Fica caro" não é análise.
 - Cada mensagem ao agente consome crédito do workspace. Mudança de código vai por commit no GitHub, não pelo chat. Só Supabase justifica a mensagem, e consolidada em uma só.
 
 **Projeto de cliente**
-- Assinatura fica na conta do cliente, nunca no cartão do Mateus.
+- Assinatura fica na conta do cliente, nunca no cartão pessoal do desenvolvedor.
 - Hospedagem gratuita que proíbe uso comercial não serve para app de cliente. Conferir o termo antes de indicar.
 
 ## Como estimar

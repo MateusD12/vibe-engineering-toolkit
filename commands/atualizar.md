@@ -7,13 +7,13 @@ Vou alterar o projeto existente seguindo O FLUXO OBRIGATÓRIO (Modo Turbo) do CL
 Pedido do usuário: $ARGUMENTS
 
 Execute na ordem:
-1. **Identificar o projeto** em `C:\Projetos\<app>` e ler o topo do `Historico.md` (primeiras ~60 linhas, se existir).
+1. **Identificar o projeto** na pasta de trabalho e ler o topo do `Historico.md` (primeiras ~60 linhas, se existir).
 2. **Especialista do domínio:**
    - Para apps/sistemas: acionar `descoberta-agentes` e ler o `especialista-<dominio>` do projeto.
    - Para jogos/ports/mods/decomp: acionar `engenheiro-reversa-jogos` + `mod-orchestrator` + CLI `um` (`vr-game-modding` para VR, `wasm-game-ports` para navegador).
 3. **Mapa Obsidian antes de abrir código (OBRIGATÓRIO, custo zero):**
-   - Se `<app>/.memory/02-codemap/tree-signatures.md` não existir, rodar:
-     `node "C:/Users/Pichau/.claude/skills/obsidian-engine/scripts/codemap_generator.js" "C:/Projetos/<app>"`
+   - Se `.memory/02-codemap/tree-signatures.md` não existir, rodar:
+     `node ~/.claude/skills/obsidian-engine/scripts/codemap_generator.js <pasta-do-projeto>`
    - Ler `.memory/00-index/MOC-geral.md` e achar arquivo/linha no `.memory/02-codemap/tree-signatures.md` (buscando pelo nome). Ler só as janelas de linha necessárias e passar arquivos/linhas exatos aos subagentes.
 4. **Implementar (Quality Gate 350 Linhas + Ondas Paralelas):**
    - Nenhum arquivo de código de aplicação pode exceder **350 linhas** (fatiar estado em Hooks, UI em sub-componentes, dados em services).
