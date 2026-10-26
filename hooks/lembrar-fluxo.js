@@ -2,7 +2,7 @@
 /**
  * Hook UserPromptSubmit — lê o pedido e injeta QUAIS agentes/skills a sessão deve chamar + protocolo Obsidian Engine.
  * Versão em Node.js nativa para o PC pessoal (zero dependência de Python).
- * Cobertura universal: Apps Web/Mobile, Backend/SQL, IA, Jogos/Engenharia Reversa/Ports/VR/Wasm e Sanitização.
+ * Cobertura universal: Apps Web/Mobile, Backend/SQL, IA/Stack $0, Jogos/Engenharia Reversa/Ports/VR/Wasm, SEO, Voz e Sanitização.
  */
 const REGRAS = [
   [
@@ -11,7 +11,7 @@ const REGRAS = [
   ],
   [
     /\b(atualiz|implement|corrig|ajust|refator|arrum|adicion|remov|mud|mex|troc|alter|consert|quebr)\w*\b|\b(bug|erros?)\b/i,
-    "MUDANÇA DE CÓDIGO — limite estrito de 350 linhas/arquivo + pipeline antes do commit: revisor-codigo (sempre) → seguranca (auth/SSO/RLS/dados/rotas/uploads/segredos) → testador (build + preview) → pentester + tech-lead (mudança grande/sensível)."
+    "MUDANÇA DE CÓDIGO — limite estrito de 350 linhas/arquivo + ciclo de auto-cura (ciclo-auto-cura) + pipeline antes do commit: revisor-codigo (sempre) → seguranca (auth/SSO/RLS/dados/rotas/uploads/segredos) → testador (build + preview) → pentester + tech-lead (mudança grande/sensível)."
   ],
   [
     /\b(pente[\s-]?fino|sanitiz\w*|c[oó]digo\s+morto|warnings?\b|350\s+linhas|limp(a|ar|eza)\s+(de\s+)?(c[oó]digo|legado|projeto))\b/i,
@@ -46,12 +46,24 @@ const REGRAS = [
     "DEPENDÊNCIAS — gestor-dependencias (separar patch/minor de major e validar build)."
   ],
   [
-    /(\bia\b|intelig[eê]ncia artificial|\bgpt|openai|\bprompt|\bocr\b|chatbot|\bllm\b|\bresum)/i,
-    "IA NO APP — revisor-ia (prompt injection, custo, chave exposta)."
+    /(\bia\b|intelig[eê]ncia artificial|\bgpt|openai|\bprompt|\bocr\b|chatbot|\bllm\b|\bresum|ollama)/i,
+    "IA NO APP & STACK $0 — skills ollama-local-llm (inferência local localhost:11434), catalogo-apis-gratuitas e revisor-ia (prompt injection, chaves expostas)."
+  ],
+  [
+    /\b(voz|áudio|audio|fala|tts|stt|elevenlabs|kokoro|piper|whisper|narrador|dublagem)\b/i,
+    "VOZ & ÁUDIO LOCAL ($0) — skill voz-audio-local (síntese neural offline sem custos de nuvem)."
+  ],
+  [
+    /\b(seo|semrush|ahrefs|sitemap|robots\.txt|meta tags?|core web vitals|schema\.org|json-ld|indexab\w*)\b/i,
+    "SEO TÉCNICO — skill seo-tecnico (padrão OpenSEO: auditoria, meta tags, schema.org e Core Web Vitals)."
+  ],
+  [
+    /\b(scrap\w*|crawl\w*|extra(ir|ção)|cloudflare|turnstile)\b/i,
+    "STEALTH SCRAPING — skill scrapling-crawler (Python + Camoufox sem bloqueios anti-bot)."
   ],
   [
     /\b(custo|quanto (vai )?custa|egress|storage|plano do supabase|azure|cr[eé]dito|escalar|mais usu[aá]rios)/i,
-    "CUSTO — analista-custo-nuvem."
+    "CUSTO — analista-custo-nuvem (arquitetura Free-for-dev)."
   ],
   [
     /\b(electron|desktop|agent sdk)/i,
@@ -71,12 +83,12 @@ const REGRAS = [
   ],
   [
     /\b(commit|push|sobe|subir|git)\b/i,
-    "GIT — git-workflow (branch padrão: main)."
+    "GIT & PRIVACIDADE — git-workflow: branch main direta; NUNCA commitar caminhos locais absolutos (C:\\Users\\...), dados de máquina, segredos ou arquivos .env."
   ]
 ];
 
 const OBSIDIAN =
-  'OBSIDIAN ENGINE (obrigatório, custo zero de tokens) — antes de abrir código: se .memory/02-codemap/tree-signatures.md não existir, rode `node ~/.claude/skills/obsidian-engine/scripts/codemap_generator.js <projeto>`; ache arquivo/linha no mapa (busque pelo nome) e leia só os trechos; passe arquivos/linhas exatos aos subagentes; no fim rode o script de novo + nota do módulo em .memory/01-arquitetura/.';
+  'OBSIDIAN ENGINE & MODO TURBO (obrigatório, custo zero de tokens) — antes de abrir código: se .memory/02-codemap/tree-signatures.md não existir, rode `node ~/.claude/skills/obsidian-engine/scripts/codemap_generator.js <projeto>`; use leitura cirúrgica por offset; aproveite a Stack $0 (Ollama em localhost:11434 e APIs gratuitas); auto-cura em build/teste; e NUNCA commitar caminhos pessoais ou dados corporativos.';
 
 const RODAPE =
   'No relatório final inclua: "Agentes: <quem rodou> ✔" ou "não necessário: <motivo>". Dúvida/explicação simples: responder direto, sem agentes.';
@@ -99,7 +111,7 @@ process.stdin.on('end', () => {
   }
 
   const trabalho = hits.some((m) =>
-    ['MUDANÇA', 'APP/PROJETO', 'SANITIZAÇÃO', 'ONDAS', 'JOGOS', 'VR', 'PORT WEB', 'BANCO', 'TELA', 'DESKTOP', 'DEPENDÊNCIAS', 'IA NO APP'].some((k) => m.includes(k))
+    ['MUDANÇA', 'APP/PROJETO', 'SANITIZAÇÃO', 'ONDAS', 'JOGOS', 'VR', 'PORT WEB', 'BANCO', 'TELA', 'DESKTOP', 'DEPENDÊNCIAS', 'IA NO APP', 'VOZ', 'SEO', 'STEALTH'].some((k) => m.includes(k))
   );
   if (trabalho || prompt.includes('cross-session-message') || prompt.includes('another claude session')) {
     hits.unshift(OBSIDIAN);

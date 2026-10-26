@@ -41,3 +41,8 @@ Em **qualquer projeto** (Web/TS/React, Python, C/C++, C#, Rust, Go, Lua, SQL, jo
 
 ## 4. Git & Workflow (Branch Padrão: `main`)
 - Todos os repositórios trabalham direto na branch `main` (`git push origin main`).
+
+## 5. Higiene de Código, Privacidade & Boas Práticas Globais (OBRIGATÓRIO)
+- **Zero Vazamento de Dados Pessoais / Máquina:** NUNCA escrever ou commitar caminhos absolutos locais com nomes de usuários do Windows (ex: `C:\Users\...`, perfis de hardware pessoal), senhas, segredos ou arquivos `.env`. Utilize sempre variáveis de ambiente genéricas (`$env:USERPROFILE`, `~`, `%LOCALAPPDATA%`) ou caminhos relativos ao projeto.
+- **Escopo 100% Pessoal / Open Source:** Nenhuma menção, token, repositório ou dependência corporativa deve ser vinculada ou comitada neste ambiente.
+- **Verificação Pré-Commit:** Antes de executar `git commit`, verifique `git diff` e `git status` para garantir que arquivos de configuração sensíveis ou lixo de build não foram incluídos.

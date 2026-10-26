@@ -21,9 +21,22 @@
   - **Inteligência de Mercado no App Cartão:** Incorporação de benchmarks de CDI/Selic e dados abertos inspirados no Vibe-Trading em `skills/catalogo-apis-gratuitas`.
 - **Impacto:** O toolkit cobre agora áudio neural local, SEO técnico completo e inteligência financeira sem custos de API.
 
+### Blindagem Global de Privacidade, Sanitização & Propagação de Boas Práticas (25/10/2026)
+- **Contexto:** Garantir que nenhuma sessão nova contenha ou comite caminhos da máquina local (`C:\Users\...`), perfis pessoais ou credenciais, e que o hook global `lembrar-fluxo.js` e as diretrizes propaguem essas boas práticas para qualquer repositório.
+- **Ação:**
+  - **Hook Global `lembrar-fluxo.js`:** Expandido com novos gatilhos para SEO técnico, síntese de voz local, scraping indetectável e alerta estrito contra caminhos absolutos locais em commits.
+  - **Diretrizes Globais (`CLAUDE.md` e `GEMINI.md`):** Formalização da Regra 5 de Higiene de Código, Privacidade e Escopo 100% Pessoal / Open Source.
+  - **Auditoria de Sanitização:** Varredura em 100% dos arquivos do repositório confirmando ausência total de caminhos de hardware pessoal ou nomes corporativos.
+  - **Sincronização Global:** Execução do `install.ps1` propagando as atualizações para `~/.claude` e `~/.gemini/config/skills`.
+- **Impacto:** Todas as novas conversas em qualquer projeto herdam automaticamente as diretrizes de privacidade e as 34 skills do toolkit.
+
 ---
 
 ## Histórico de Alterações
+
+### 25 de Outubro de 2026 — Blindagem de Privacidade & Hook Global
+- **O que foi feito:** Adição da Regra 5 em `CLAUDE.md` e `GEMINI.md`, expansão de `hooks/lembrar-fluxo.js`, atualização do `Historico.md`, validação de sanitização e sincronização global.
+- **Arquivos alterados:** `CLAUDE.md`, `GEMINI.md`, `hooks/lembrar-fluxo.js`, `Historico.md`.
 
 ### 25 de Outubro de 2026 — Expansão Multimodal (Voz Local, SEO Técnico & Vibe-Trading)
 - **O que foi feito:** Criação de `skills/voz-audio-local/SKILL.md` e `skills/seo-tecnico/SKILL.md`. Atualização de `skills/catalogo-apis-gratuitas/SKILL.md`, `README.md` e sincronização global.
