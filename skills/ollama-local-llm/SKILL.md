@@ -21,6 +21,7 @@ Para máquinas com **16 GB de RAM** (como AMD Ryzen 5 / APU ou GPUs mid-tier):
 
 | Modelo | Tamanho (VRAM/RAM) | Especialidade | Uso Típico |
 | :--- | :--- | :--- | :--- |
+| `ceia-lumi-4b` | ~4.5 GB | LLM Soberana BR (Nemotron-H / Mamba-2) | Português nativo, conformidade BR, raciocínio local |
 | `qwen2.5-coder:7b` | ~4.7 GB | Código, refatoração, TypeScript/Python | Code review, testes unitários, boilerplate |
 | `qwen2.5-coder:1.5b`| ~1.2 GB | Código ultrarrápido | Parsing de sintaxe, regex, linting |
 | `deepseek-r1:8b` | ~5.0 GB | Raciocínio lógico, matemática, chain-of-thought | Resolução de bugs difíceis, lógica de regras |
