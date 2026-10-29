@@ -34,6 +34,17 @@
 
 ## Histórico de Alterações
 
+### 28 de Outubro de 2026 — Integração Soberana Lumi 4B, Telegram Agent Bridge v2.0, TRIBE v2 & Auditoria 360°
+- **Contexto:** Incorporação das novidades apresentadas no *AI Brasil Experience 2026*: o modelo soberano brasileiro CEIA Lumi 4B, o modelo preditivo neurocientífico TRIBE v2 da Meta FAIR, a ponte de controle remoto via Telegram com memória contínua (`agy` CLI) e a formalização do Conselho de IAs para auditoria unificada 360°.
+- **O que foi feito:**
+  - **CEIA Lumi 4B Local (`C:\Projetos\ceia-lumi`):** Download dos pesos oficiais (7.95 GB) no SSD, auto-cura para compatibilidade com Windows/CPU (eliminando dependência de Triton/mamba_ssm, corrigindo cache_position e removendo torch.cuda.stream forçado). Scripts de chat interativo e API local OpenAI-compatible na porta 8000.
+  - **Telegram Agent Bridge v2.0 (`C:\Projetos\telegram-agent`):** Bot de controle remoto do PC via Telegram com pareamento seguro de ID, `/status` de hardware e IAs, `/print` de tela do PC, memória contínua de contexto via `agy --continue`, recebimento de fotos/áudios e envio automático de documentos gerados (`.docx`, `.txt`).
+  - **Skill `auditoria-360` (`skills/auditoria-360/SKILL.md`):** Protocolo do Conselho de IAs disparado pelo comando único *"Avalia o app e veja possíveis erros, melhorias e etc"*, orquestrando Qwen (código), Lumi (PT-BR e privacidade) e TRIBE v2 (cognitivo).
+  - **Skill `telegram-agent-bridge` (`skills/telegram-agent-bridge/SKILL.md`):** Documentação técnica completa da ponte móvel Telegram-PC.
+  - **Skill `tribe-v2-cognitivo` (`skills/tribe-v2-cognitivo/SKILL.md`):** Mapeamento do modelo fundacional trimodal da Meta FAIR para avaliação de estímulo e sobrecarga cognitiva.
+  - **Atualização de `skills/ollama-local-llm`:** Inclusão do Lumi 4B como motor soberano brasileiro de texto e análise.
+- **Arquivos alterados:** `Historico.md`, `skills/auditoria-360/SKILL.md`, `skills/telegram-agent-bridge/SKILL.md`, `skills/tribe-v2-cognitivo/SKILL.md`, `skills/ollama-local-llm/SKILL.md`.
+
 ### 25 de Outubro de 2026 — Blindagem de Privacidade & Hook Global
 - **O que foi feito:** Adição da Regra 5 em `CLAUDE.md` e `GEMINI.md`, expansão de `hooks/lembrar-fluxo.js`, atualização do `Historico.md`, validação de sanitização e sincronização global.
 - **Arquivos alterados:** `CLAUDE.md`, `GEMINI.md`, `hooks/lembrar-fluxo.js`, `Historico.md`.
