@@ -1,6 +1,19 @@
 # Histórico do Projeto — Vibe Engineering Toolkit
 
-## Estado Atual do Projeto (25 de Outubro de 2026)
+## Estado Atual do Projeto (31 de Outubro de 2026)
+
+### Central Powerhouse v2.5, Gather.town 2D Office, Multi-Agent Pipeline & Push Notifier (31/10/2026)
+- **Contexto:** Lançamento da interface visual imersiva estilo Gather.town (16-bit RPG) e esteira de pipeline neon para a orquestração em tempo real dos 103 agentes e 194 skills, com controle remoto de voz via Telegram e proteção estrita de créditos ($0 Tokens).
+- **O que foi feito:**
+  - **Skill `ceia-lumi` (`skills/ceia-lumi/SKILL.md`):** Formalizada a documentação da IA soberana brasileira de 4B de parâmetros rodando na porta 8000 a $0 de tokens.
+  - **Escritório Virtual Gather.town:** Layout contínuo de 4.400px com 9 setores, 103 estações de trabalho, card flutuante oficial no topo direito, área externa com bétulas e grama, cafeteria com vapor animado, lounge com mesa de ping-pong e navegação por Pan & Drag com o mouse.
+  - **Dashboard Multi-Agent Pipeline:** Esteira de cards neon integrada (`New Request` ➔ `Lead Qualifier` ➔ `Auto-Responder` ➔ `Task Manager`), Integration Layer com 5 conectores e 3 KPIs em tempo real.
+  - **Telegram Agent Bridge v2.2:** Transcrição offline via Faster-Whisper, heartbeats de progresso ao vivo durante tarefas longas, Smart Auto-Routing para IAs locais ($0) e auto-fallback transparente caso os créditos de nuvem acabem.
+  - **Sistema de Notificações Remotas (`notifier.py`):** Push notifications diretas no celular para rotinas periódicas de 2 em 2 horas e ações concluídas no computador.
+  - **Rotina Autônoma Periódica (2h):** Varredura nos projetos, limpeza automática de centenas de pastas de cache (`__pycache__`) e fiscalização da Regra das 350 Linhas.
+- **Impacto:** O toolkit passa a oferecer visualização viva e espacial de todos os agentes trabalhando simultaneamente, com total transparência e acompanhamento no celular.
+
+---
 
 ### Upgrade Powerhouse: Inferência Local $0, APIs Gratuitas, Stealth Scraping & Auto-Cura (25/10/2026)
 - **Contexto:** Transformar a máquina local e o toolkit em uma potência de desenvolvimento livre de custos de tokens e assinaturas de APIs, aproveitando as melhores práticas dos 10 repositórios de referência (`ollama`, `Scrapling`, `public-apis`, `free-for-dev`, `OpenHands`, `awesome-mcp-servers`).

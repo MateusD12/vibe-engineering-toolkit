@@ -63,6 +63,21 @@ flowchart TD
 - **Catálogo de APIs Gratuitas e Free-for-Dev:** Mapeamento de APIs abertas (Scryfall para TCG, Open Food Facts para Fitness, Banco Central/AwesomeAPI para Finanças) e arquiteturas de nuvem sem custo mensal (Supabase Free, Cloudflare R2/Workers, Neon, Turso).
 - **Ciclo de Auto-Cura Autônomo:** Loop inspirado no OpenHands para detectar diagnósticos de erro em stdout/stderr, aplicar correções pontuais e retestar iterativamente até o sinal verde.
 
+### 6. 🇧🇷 Conselho de IAs Locais 360° (Stack $0 Avançada)
+- **CEIA Lumi 4B (`ceia-lumi` na Porta 8000):** Modelo de fundação nacional brasileiro em português nativo (4B) rodando via PyTorch/Transformers a $0 de tokens. Fluência absoluta em normas e dialetos brasileiros para redação, diálogos de NPCs e copywriting.
+- **TRIBE v2 (Meta FAIR):** Modelo preditivo fundacional de neurociência *in-silico*. Avalia a sobrecarga cognitiva, engajamento e impacto de estímulos multissensoriais (texto, áudio e vídeo).
+- **Conselho Multi-Modelo 360°:** Bateria de auditoria combinando o Agente Revisor Local (código e 350L), CEIA Lumi 4B (português) e TRIBE v2 (cognitivo) para validar aplicações antes do deploy.
+
+### 7. 🎮 Central Powerhouse v2.5 (Gather.town 16-bit + Multi-Agent Pipeline)
+- **Escritório Virtual Gather.town:** Planta baixa contínua de 4.400px com 9 setores, 103 estações de trabalho de agentes, lounge central com ping-pong e sofás, cafeteria com vapor de café e card flutuante oficial no canto superior direito.
+- **Navegação Pan & Drag Fluida:** Movimentação suave com clique e arraste do mouse ou scroll horizontal contínuo.
+- **Dashboard Multi-Agente Neon:** Painel de cards neon com conexão horizontal em tempo real (`New Request` ➔ `Lead Qualifier` ➔ `Auto-Responder` ➔ `Task Manager`), Integration Layer e KPIs dinâmicos.
+
+### 8. 📲 Telegram Agent Bridge v2.2 & Push Notifier Remoto
+- **Controle Remoto com Faster-Whisper:** Envio de comandos de voz ou texto via Telegram com transcrição offline e Smart Auto-Routing para IAs locais e CLI.
+- **Heartbeats de Progresso:** Feedback visual passo a passo em tempo real durante a execução de tarefas longas.
+- **Push Notifier Universal (`notifier.py`):** Notificações automáticas no celular com alertas de início, progresso e conclusão da rotina autônoma de 2 em 2 horas e ações do computador.
+
 ---
 
 ## 🚀 Instalação Rápida em 1 Clique
@@ -144,6 +159,11 @@ chmod +x ./scripts/install.sh
 27. **`checkup-pc`:** Auditoria de performance, saúde e storage do ambiente de desenvolvimento.
 28. **`lovable-economia`:** Otimização e consolidação de prompts em plataformas low-code.
 29. **`compliance-privacy`:** Diretrizes de segurança de dados e privacidade em conformidade.
+30. **`ceia-lumi`:** Modelo nacional de fundação brasileiro (4B) para redação fluida em português nativo sem custo de nuvem ($0).
+31. **`tribe-v2-cognitivo`:** Modelo de neurociência in-silico (Meta FAIR) para predição de impacto cognitivo e sensorial.
+32. **`telegram-agent-bridge`:** Controle remoto do PC via Telegram com transcrição offline Faster-Whisper e Smart Router.
+33. **`auditoria-360`:** Bateria de avaliação multi-modelo com o Conselho de IAs Locais (Revisor, Lumi 4B e TRIBE v2).
+34. **`voz-audio-local`:** Síntese e geração de áudio/voz local a $0 para dublagem de NPCs, narração e coaching.
 
 ---
 
